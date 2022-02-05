@@ -1,0 +1,16 @@
+{
+  "name": "XREngine-Project-Inventory",
+  "version": "0.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "test": "mocha --config .mocharc.js"
+  },
+  "peerDependencies": {},
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "9.2.0",
+    "trace-unhandled": "2.0.1"
+  },
+  "license": "ISC"
+}
