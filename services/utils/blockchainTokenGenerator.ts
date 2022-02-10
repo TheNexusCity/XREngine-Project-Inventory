@@ -1,7 +1,7 @@
 import axios from 'axios'
-import config from '../appconfig'
+import config from '@xrengine/server-core/src/appconfig'
 
-export default async (): Promise<any> => {
+export const blockchainTokenGenerator = async (): Promise<any> => {
   let response = await axios.post(`${config.blockchain.blockchainUrl}/authorizeServer`, {
     authSecretKey: config.blockchain.blockchainUrlSecret
   })

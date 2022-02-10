@@ -1,7 +1,7 @@
 import axios from 'axios'
-import config from '../appconfig'
+import config from '@xrengine/server-core/src/appconfig'
 
-export default async (fromUserId, toUserId, walletAmt, accessToken): Promise<any> => {
+export const blockchainUserWalletSend = async (fromUserId, toUserId, walletAmt, accessToken): Promise<any> => {
   let response = await axios.post(
     `${config.blockchain.blockchainUrl}/user-wallet-data/send`,
     {

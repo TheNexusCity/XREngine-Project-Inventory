@@ -1,5 +1,5 @@
 import assert from 'assert'
-import app from '../../server/src/app'
+import app from '@xrengine/server/src/app'
 import data from './inventory-item.test'
 
 let dataToBeSent2 = data.dataToBeSent2

@@ -1,5 +1,5 @@
+import { Application } from '@xrengine/server-core/declarations';
 import { Sequelize, DataTypes } from 'sequelize'
-import { Application } from '../../../declarations'
 import { inventoryItemType as inventoryItemTypeEnum } from './inventoryItemType'
 
 export default (app: Application): any => {

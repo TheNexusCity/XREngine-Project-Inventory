@@ -1,5 +1,5 @@
+import { Application } from '@xrengine/server-core/declarations'
 import { Service, SequelizeServiceOptions } from 'feathers-sequelize'
-import { Application } from '../../../declarations'
 //import { Params } from '@feathersjs/feathers'
 
 export class InventoryItem extends Service {

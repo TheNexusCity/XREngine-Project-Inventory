@@ -1,10 +1,10 @@
-import { AuthService, useAuthState } from '../../../services/AuthService'
+
 import React, { useEffect, useState } from 'react'
-import { client } from '../../../../feathers'
-import { useDispatch, store } from '../../../../store'
 import TradingContent from './TradingContent'
 import styles from '../UserMenu.module.scss'
-import { TradingAction, TradingService, useTradingState } from '../../../services/TradingService'
+import { TradingAction, TradingService, useTradingState } from '../services/TradingService'
+import { useDispatch } from '@xrengine/client-core/src/store'
+import { AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 
 interface Props {
   changeActiveMenu?: any

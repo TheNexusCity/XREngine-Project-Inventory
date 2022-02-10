@@ -1,9 +1,8 @@
-import { AuthService, useAuthState } from '../../../services/AuthService'
-import React, { useEffect, useState } from 'react'
-import { client } from '../../../../feathers'
+import React, { useEffect } from 'react'
 import WalletContent from './WalletContent'
 import styles from '../UserMenu.module.scss'
-import { useWalletState, WalletService } from '../../../services/WalletService'
+import { useWalletState, WalletService } from '../services/WalletService'
+import { AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 
 interface Props {
   changeActiveMenu?: any

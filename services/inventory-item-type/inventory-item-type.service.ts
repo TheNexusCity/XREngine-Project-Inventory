@@ -1,10 +1,10 @@
-import { Application } from '../../../declarations'
+import { Application } from '@xrengine/server-core/declarations'
 import { InventoryItemType } from './inventory-item-type.class'
 import createModel from './inventory-item-type.model'
 import hooks from './inventory-item-type.hooks'
 import inventoryTypeDocs from './inventory-item-type.docs'
 
-declare module '../../../declarations' {
+declare module '@xrengine/common/declarations' {
   interface ServiceTypes {
     'inventory-item-type': InventoryItemType
   }

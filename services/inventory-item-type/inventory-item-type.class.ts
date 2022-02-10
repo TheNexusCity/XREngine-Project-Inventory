@@ -1,5 +1,5 @@
+import { Application } from '@xrengine/server-core/declarations'
 import { Service, SequelizeServiceOptions } from 'feathers-sequelize'
-import { Application } from '../../../declarations'
 
 /**
  * A class for Collection type service

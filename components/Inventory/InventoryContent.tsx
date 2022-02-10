@@ -1,8 +1,7 @@
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import makeStyles from '@mui/styles/makeStyles'
 import { ArrowBackIos, FilterList } from '@mui/icons-material'
-import styles from '../UserMenu.module.scss'
+import styles from '@xrengine/client-core/src/user/components/UserMenu/UserMenu.module.scss'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
@@ -20,8 +19,7 @@ import {
   Select,
   Stack
 } from '@mui/material'
-import { useHistory } from 'react-router-dom'
-import { usePrevious } from '../../../../../client-core/src/hooks/usePrevious'
+import { usePrevious } from '@xrengine/client-core/src/hooks/usePrevious'
 
 const ITEM_HEIGHT = 48
 

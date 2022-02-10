@@ -1,8 +1,8 @@
 import { Service, SequelizeServiceOptions } from 'feathers-sequelize'
-import { Application } from '../../../declarations'
+import { Application } from '@xrengine/server-core/declarations'
 import { NullableId, Params } from '@feathersjs/feathers'
-import blockchainTokenGenerator from '../../util/blockchainTokenGenerator'
-import blockchainUserWalletSend from '../../util/blockchainUserWalletSend'
+import { blockchainTokenGenerator } from '../utils/blockchainTokenGenerator'
+import { blockchainUserWalletSend } from '../utils/blockchainUserWalletSend'
 
 interface Data {}
 interface ServiceOptions {}

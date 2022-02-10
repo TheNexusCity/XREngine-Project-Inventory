@@ -1,8 +1,8 @@
-import { AuthService, useAuthState } from '../../../services/AuthService'
+import { AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 import React, { useEffect, useState } from 'react'
 import InventoryContent from './InventoryContent'
-import styles from '../UserMenu.module.scss'
-import { InventoryService, useInventoryState } from '../../../services/InventoryService'
+import styles from '@xrengine/client-core/src/user/components/UserMenu/UserMenu.module.scss'
+import { InventoryService, useInventoryState } from '../services/InventoryService'
 
 interface Props {
   changeActiveMenu?: any

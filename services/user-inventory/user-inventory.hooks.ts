@@ -1,5 +1,5 @@
+import authenticate from '@xrengine/server-core/src/hooks/authenticate'
 import { disallow } from 'feathers-hooks-common'
-import authenticate from '../../hooks/authenticate'
 
 export default {
   before: {

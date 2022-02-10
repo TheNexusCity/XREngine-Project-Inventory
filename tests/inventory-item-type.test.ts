@@ -1,5 +1,5 @@
 import assert from 'assert'
-import app from '../../server/src/app'
+import app from '@xrengine/server/src/app'
 
 let dataToBeSent = {
   inventoryItemTypeId: null

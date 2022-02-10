@@ -18,7 +18,7 @@ import {
   Stack
 } from '@mui/material'
 import { useHistory } from 'react-router-dom'
-import { usePrevious } from '../../../../hooks/usePrevious'
+import { usePrevious } from '@xrengine/client-core/src/hooks/usePrevious'
 
 const useStyles = makeStyles({
   root1: {
