@@ -17,11 +17,6 @@ export default (app: Application): any => {
     multi: true
   }
 
-  /**
-   * Initialize our service with any options it requires and docs
-   *
-   * @author DRC
-   */
   const event = new UserTrade(options, app)
   event.docs = userTradeDocs
   app.use('user-trade', event)

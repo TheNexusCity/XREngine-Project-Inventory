@@ -1,13 +1,12 @@
 import { createState, useState } from '@speigg/hookstate'
 import { store, useDispatch } from '@xrengine/client-core/src/store'
 import { client } from '@xrengine/client-core/src/feathers'
+import { UserId } from '@xrengine/common/src/interfaces/UserId'
 
 //State
 const state = createState({
-  coinData: [] as Array<any>,
   data: [] as Array<any>,
   user: [] as Array<any>,
-  type: [] as Array<any>,
   isLoading: false,
   isLoadingtransfer: false
 })
@@ -17,16 +16,7 @@ store.receptors.push((action: InventoryActionType): void => {
     switch (action.type) {
       case 'SET_INVENTORY_DATA':
         return s.merge({
-          data: [...action.data.filter((val) => val.isCoin === false)],
-          coinData: [...action.data.filter((val) => val.isCoin === true)]
-        })
-      case 'SET_USER_DATA':
-        return s.merge({
-          user: [...action.user]
-        })
-      case 'SET_TYPE_DATA':
-        return s.merge({
-          type: [...action.types]
+          data: action.data,
         })
       case 'LOAD_TRANFER':
         return s.merge({ isLoadingtransfer: true })
@@ -47,7 +37,7 @@ export const useInventoryState = () => useState(state) as any as typeof state as
 export const InventoryService = {
   handleTransfer: async (ids, itemid, inventoryid) => {
     const dispatch = useDispatch()
-    dispatch(InventoryAction.loadtransfer())
+    dispatch(InventoryAction.loadTransfer())
     try {
       const response = await client.service('user-inventory').patch({
         userId: ids,
@@ -57,51 +47,21 @@ export const InventoryService = {
     } catch (err) {
       console.error(err, 'error')
     } finally {
-      dispatch(InventoryAction.stoploadtransfer())
+      dispatch(InventoryAction.stopLoadTransfer())
     }
   },
 
-  fetchInventoryList: async (id) => {
-    const dispatch = useDispatch()
-    dispatch(InventoryAction.loadinventory())
-    try {
-      const response = await client.service('user').get(id)
-      dispatch(InventoryAction.setinventorydata(response.inventory_items))
-    } catch (err) {
-      console.error(err, 'error')
-    } finally {
-      dispatch(InventoryAction.stoploadinventory())
-    }
-  },
-
-  fetchUserList: async (id) => {
+  fetchInventoryList: async (userId: UserId) => {
     const dispatch = useDispatch()
     try {
-      const response = await client.service('inventory-item').find({
+      const response = await client.service('user-inventory').find({
         query: {
-          isCoin: true
+          paginate: false,
+          userId
         }
       })
-      const resp = response?.data[0]
-      const prevData = [...resp?.users]
-      if (response.data && response.data.length !== 0) {
-        const activeUser = prevData.filter((val: any) => val.inviteCode !== null && val.id !== id)
-
-        dispatch(InventoryAction.setuserdata(activeUser))
-      }
-    } catch (err) {
-      console.error(err, 'error')
-    }
-  },
-
-  fetchtypeList: async () => {
-    const dispatch = useDispatch()
-
-    try {
-      const response = await client.service('inventory-item-type').find()
-      if (response.data && response.data.length !== 0) {
-        dispatch(InventoryAction.settypedata(response.data))
-      }
+      console.log(response)
+      // dispatch(InventoryAction.setInventoryData(response))
     } catch (err) {
       console.error(err, 'error')
     }
@@ -110,42 +70,30 @@ export const InventoryService = {
 
 //Action
 export const InventoryAction = {
-  loadtransfer: () => {
+  loadTransfer: () => {
     return {
       type: 'LOAD_TRANFER' as const
     }
   },
-  stoploadtransfer: () => {
+  stopLoadTransfer: () => {
     return {
       type: 'STOP_LOAD_TRANFER' as const
     }
   },
-  loadinventory: () => {
+  loadInventory: () => {
     return {
       type: 'LOAD_INVENTORY' as const
     }
   },
-  stoploadinventory: () => {
+  stopLoadInventory: () => {
     return {
       type: 'STOP_LOAD_INVENTORY' as const
     }
   },
-  setinventorydata: (arr) => {
+  setInventoryData: (data) => {
     return {
       type: 'SET_INVENTORY_DATA' as const,
-      data: [...arr]
-    }
-  },
-  setuserdata: (userarr) => {
-    return {
-      type: 'SET_USER_DATA' as const,
-      user: [...userarr]
-    }
-  },
-  settypedata: (typearr) => {
-    return {
-      type: 'SET_TYPE_DATA' as const,
-      types: [...typearr]
+      data
     }
   }
 }

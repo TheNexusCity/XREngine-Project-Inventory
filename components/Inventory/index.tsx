@@ -11,16 +11,16 @@ interface Props {
 
 export const Inventory = (props: Props): any => {
   const inventoryState = useInventoryState()
-  let { data, user, type, isLoading, isLoadingtransfer, coinData } = inventoryState.value
+  let { isLoading } = inventoryState.value
   const authState = useAuthState()
+
   useEffect(() => {
     AuthService.doLoginAuto(true)
   }, [])
+
   useEffect(() => {
     if (authState.isLoggedIn.value) {
-      InventoryService.fetchInventoryList(props.id)
-      InventoryService.fetchUserList(props.id)
-      InventoryService.fetchtypeList()
+      InventoryService.fetchInventoryList(authState.authUser.identityProvider.userId.value)
     }
   }, [authState.isLoggedIn.value])
 
@@ -30,14 +30,8 @@ export const Inventory = (props: Props): any => {
         'Loading...'
       ) : (
         <InventoryContent
-          data={data}
-          coinData={coinData}
-          user={user}
           id={props.id}
-          type={type}
           changeActiveMenu={props.changeActiveMenu}
-          InventoryService={InventoryService}
-          isLoadingtransfer={isLoadingtransfer}
         />
       )}
     </div>

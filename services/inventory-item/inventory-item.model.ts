@@ -1,10 +1,10 @@
-import { Sequelize, DataTypes } from 'sequelize'
-import generateShortId from '@xrengine/server-core/src/util/generate-short-id'
+import { Sequelize, DataTypes, Model } from 'sequelize'
 import { Application } from '@xrengine/server-core/declarations'
+import { InventoryItemInterface } from '../../interfaces/InventoryInterfaces'
 
 export default (app: Application): any => {
   const sequelizeClient: Sequelize = app.get('sequelizeClient')
-  const inventoryItem = sequelizeClient.define(
+  const inventoryItem = sequelizeClient.define<Model<InventoryItemInterface>>(
     'inventory_item',
     {
       inventoryItemId: {
@@ -12,11 +12,6 @@ export default (app: Application): any => {
         defaultValue: DataTypes.UUIDV1,
         allowNull: false,
         primaryKey: true
-      },
-      sid: {
-        type: DataTypes.STRING,
-        defaultValue: (): string => generateShortId(8),
-        allowNull: false
       },
       name: {
         type: DataTypes.STRING,
@@ -40,29 +35,9 @@ export default (app: Application): any => {
           }
         }
       },
-      isPublic: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
-        allowNull: false
-      },
-      isCoin: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        allowNull: false
-      },
       url: {
         type: DataTypes.STRING,
         allowNull: false
-        // get(this: any): string {
-        //   return `${INVENTORY_API_ENDPOINT}/${this.id as string}`
-        // },
-        // set(): void {
-        //   throw new Error('Do not try to set the `url` value!')
-        // }
-      },
-      ownedFileIds: {
-        type: DataTypes.TEXT({ length: 'medium' }),
-        allowNull: true
       }
     },
     {
@@ -75,13 +50,11 @@ export default (app: Application): any => {
   )
 
   ;(inventoryItem as any).associate = (models: any): void => {
-    ;(inventoryItem as any).belongsTo(models.inventory_item_type, { foreignKey: 'inventoryItemTypeId', required: true })
-    ;(inventoryItem as any).belongsToMany(models.user, {
+    inventoryItem.belongsToMany(models.user, {
       through: models.user_inventory,
       foreignKey: 'inventoryItemId'
     })
   }
-  //A.belongsToMany(B, { through: 'C' });
 
   return inventoryItem
 }

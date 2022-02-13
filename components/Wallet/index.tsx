@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import WalletContent from './WalletContent'
-import styles from '../UserMenu.module.scss'
+import styles from '@xrengine/client-core/src/user/components/UserMenu/UserMenu.module.scss'
 import { useWalletState, WalletService } from '../services/WalletService'
 import { AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 

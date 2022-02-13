@@ -8,7 +8,8 @@ const config: ProjectConfigInterface = {
     '/trading': { component: () => import('./components/Trading') },
     '/wallet': { component: () => import('./components/Wallet') }
   },
-  services: undefined,
+  webappInjection: () => import('./components/webappInjection'),
+  services: './services/services.ts',
   databaseSeed: undefined
 }
 

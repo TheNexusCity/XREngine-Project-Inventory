@@ -31,10 +31,6 @@ store.receptors.push((action: TradingActionType): void => {
         return s.merge({
           user: [...action.user]
         })
-      case 'SET_TYPE_DATA':
-        return s.merge({
-          type: [...action.types]
-        })
       case 'FROM_TRADE_LIST':
         return s.merge({
           data0: [...action.ftradearr]
@@ -143,19 +139,6 @@ export const TradingService = {
       console.error(err, 'error')
     } finally {
       dispatch(TradingAction.stoploadinventory())
-    }
-  },
-
-  fetchtypeList: async () => {
-    const dispatch = useDispatch()
-
-    try {
-      const response = await client.service('inventory-item-type').find()
-      if (response.data && response.data.length !== 0) {
-        dispatch(TradingAction.settypedata(response.data))
-      }
-    } catch (err) {
-      console.error(err, 'error')
     }
   },
 
@@ -292,12 +275,6 @@ export const TradingAction = {
     return {
       type: 'TO_TRADE_LIST' as const,
       ttradearr: [...totradearr]
-    }
-  },
-  settypedata: (typearr) => {
-    return {
-      type: 'SET_TYPE_DATA' as const,
-      types: [...typearr]
     }
   }
 }

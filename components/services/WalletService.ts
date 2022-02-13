@@ -36,10 +36,6 @@ store.receptors.push((action: WalletActionType): void => {
         return s.merge({
           user: [...action.user]
         })
-      case 'SET_TYPE_DATA':
-        return s.merge({
-          type: [...action.types]
-        })
       case 'LOAD_TRANFER':
         return s.merge({ isLoadingtransfer: true })
       case 'STOP_LOAD_TRANFER':
@@ -147,19 +143,6 @@ export const WalletService = {
     } catch (err) {
       console.error(err, 'error')
     }
-  },
-
-  fetchtypeList: async () => {
-    const dispatch = useDispatch()
-
-    try {
-      const response = await client.service('inventory-item-type').find()
-      if (response.data && response.data.length !== 0) {
-        dispatch(WalletAction.settypedata(response.data))
-      }
-    } catch (err) {
-      console.error(err, 'error')
-    }
   }
 }
 
@@ -211,12 +194,6 @@ export const WalletAction = {
     return {
       type: 'SET_USER_DATA' as const,
       user: [...userarr]
-    }
-  },
-  settypedata: (typearr) => {
-    return {
-      type: 'SET_TYPE_DATA' as const,
-      types: [...typearr]
     }
   }
 }

@@ -30,18 +30,9 @@ export default {
         type: {
           type: 'string'
         },
-        isPublic: {
-          type: 'integer'
-        },
-        isCoin: {
-          type: 'integer'
-        },
         url: {
           type: 'string'
         },
-        ownedFileIds: {
-          type: 'string'
-        }
       }
     },
     'inventory-item_list': {

@@ -17,11 +17,6 @@ export default (app: Application): any => {
     multi: true
   }
 
-  /**
-   * Initialize our service with any options it requires and docs
-   *
-   * @author DRC
-   */
   const event = new InventoryItem(options, app)
   event.docs = inventoryItemDocs
   app.use('inventory-item', event)

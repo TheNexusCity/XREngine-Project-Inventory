@@ -1,6 +1,6 @@
 import { Application } from '@xrengine/server-core/declarations'
 import { Service, SequelizeServiceOptions } from 'feathers-sequelize'
-//import { Params } from '@feathersjs/feathers'
+import { Params } from '@feathersjs/feathers'
 
 export class InventoryItem extends Service {
   app: Application
@@ -10,25 +10,15 @@ export class InventoryItem extends Service {
     super(options)
     this.app = app
   }
-  /**
-   * A method which find collection
-   *
-   * @param params of query which contains userId
-   * @returns {@Object} of collection
-   * @author DRC
-   */
-  /*
-  async find(params: Params): Promise<any> {
-    params.query.$or = [
+  
+  async find(params?: Params): Promise<any> {
+    console.log(params?.query)
+    params!.query!.$or = [
       {
-        userId: params.query.userId
-      },
-      {
-        isPublic: true
+        userId: params!.query!.userId
       }
     ]
-    delete params.query.userId
+    delete params!.query!.userId
     return super.find(params)
   }
-  */
 }

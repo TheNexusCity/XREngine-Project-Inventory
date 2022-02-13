@@ -20,19 +20,19 @@ import {
   Stack
 } from '@mui/material'
 import { usePrevious } from '@xrengine/client-core/src/hooks/usePrevious'
+import { InventoryService, useInventoryState } from '../services/InventoryService'
 
 const ITEM_HEIGHT = 48
-
-const InventoryContent = ({
-  coinData,
-  data,
-  user,
+type Props = {
   id,
-  InventoryService,
-  isLoadingtransfer,
-  type,
   changeActiveMenu
-}: any) => {
+}
+
+const InventoryContent = (props: Props) => {
+
+  const { id, changeActiveMenu } = props
+  const { data, user, isLoadingtransfer } = useInventoryState().value
+
   const { t } = useTranslation()
   const [state, setState] = useState({
     url: '',
@@ -45,6 +45,10 @@ const InventoryContent = ({
   })
   const { url, metadata, userid, selectedid, anchorEl, selectedtype, inventory } = state
   const prevState = usePrevious({ selectedtype })
+
+  /** @todo */
+  const coinData = []
+
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -200,7 +204,7 @@ const InventoryContent = ({
                   >
                     All
                   </MenuItem>
-                  {type.map((option) => (
+                  {/* {type.map((option) => (
                     <MenuItem
                       style={{ display: 'block' }}
                       key={option.inventoryItemTypeId}
@@ -209,7 +213,7 @@ const InventoryContent = ({
                     >
                       {option.inventoryItemType}
                     </MenuItem>
-                  ))}
+                  ))} */}
                 </Menu>
                 {(selectedtype === '' ? data : inventory).length !== 0 ? (
                   <Stack>
