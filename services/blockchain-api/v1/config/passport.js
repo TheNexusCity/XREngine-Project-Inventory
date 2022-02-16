@@ -1,19 +1,18 @@
 /* eslint-disable camelcase */
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
-const bcrypt = require('bcrypt');
-const Sequelize = require('sequelize');
-const jwtSecret = require('jwtConfig');
+import bcrypt from "bcrypt";
+import jwtSecret from "jwtConfig";
+import passport from "passport";
+import { ExtractJwt as ExtractJWT, Strategy as JWTstrategy } from "passport-jwt";
+import { Strategy as LocalStrategy } from "passport-local";
+import Sequelize from "sequelize";
+import User from "../sequelize";
 
 const BCRYPT_SALT_ROUNDS = 12;
 // eslint-disable-next-line prefer-destructuring
 const Op = Sequelize.Op;
 
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const JWTstrategy = require('passport-jwt').Strategy;
-const ExtractJWT = require('passport-jwt').ExtractJwt;
-const User = require('../sequelize');
 
 passport.use(
   'register',

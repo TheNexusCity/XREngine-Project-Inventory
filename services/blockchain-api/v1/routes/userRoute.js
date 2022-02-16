@@ -1,12 +1,10 @@
-const { permittedCrossDomainPolicies } = require("helmet");
-const { UserData } = require("../sequelize");
-const { CONSOLE_WEB_URL, DEVELOPMENT, AUTH_SECRET_KEY, AUTH_TOKEN_SECRET } = require("../../common/environment");
-const { setCorsHeaders } = require("../../common/utils.js");
-const crypto = require("crypto");
-const { ResponseStatus } = require("../enums");
-const jwt = require("jsonwebtoken");
-const { sendMessage } = require("../../common/sesClient");
-const { createWalletInternal } = require("../routes/wallet.js");
+import crypto from "crypto";
+import { CONSOLE_WEB_URL, DEVELOPMENT } from "../../common/environment";
+import { sendMessage } from "../../common/sesClient";
+import { setCorsHeaders } from "../../common/utils.js";
+import { ResponseStatus } from "../enums";
+import { createWalletInternal } from "../routes/wallet.js";
+import { UserData } from "../sequelize";
 async function UserRoutes(app){
 
     app.post("/api/v1/user-data", (req,res,next)=>{
@@ -74,6 +72,6 @@ async function UserRoutes(app){
 }
 
 
-module.exports = {
+export default {
     UserRoutes
 };

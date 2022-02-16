@@ -1,5 +1,5 @@
-const { ResponseStatus } = require("../enums");
-const { TimerData } = require("../sequelize");
+import { ResponseStatus } from "../enums";
+import { TimerData } from "../sequelize";
 
 async function TimerRoutes(app){
 
@@ -64,6 +64,6 @@ async function TimerRoutes(app){
 
 }
 
-module.exports = {
+export default {
     TimerRoutes
 };

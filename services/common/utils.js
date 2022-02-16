@@ -25,7 +25,7 @@ const setCorsHeaders = res => {
   return res;
 };
 
-module.exports = {
+export default {
   jsonParse,
   makePromise,
   setCorsHeaders,

@@ -1,4 +1,4 @@
-module.exports = (sequelize, Sequelize) =>
+export default (sequelize, Sequelize) =>
   sequelize.define("ONBOARDING_DATA", {
     email: {
       type: Sequelize.STRING,

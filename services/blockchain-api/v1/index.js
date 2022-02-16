@@ -1,35 +1,17 @@
-const expressJSDocSwagger = require("express-jsdoc-swagger");
-const express = require("express");
-const path = require("path");
-const { AdminRoutes } = require("./routes/adminRoute.js");
+import expressJSDocSwagger from "express-jsdoc-swagger";
+import { AdminRoutes } from "./routes/adminRoute.js";
+import { environmentRoutes } from "./routes/environmentRoute";
+import { AddressRoutes } from "./routes/addressRoute";
+import { TimerRoutes } from "./routes/timerRoute";
+import { UserRoutes } from "./routes/userRoute";
+import { UserWalletRoutes } from "./routes/userWalletRoute";
+import { addSetupRoutes } from "./routes/setup.js";
+import { createWallet, sendTransactionWallet, showTransactionWallet, sendTransactionUserWallet } from "./routes/wallet.js";
+import { TruffleRoutes } from "./routes/truffleRoute";
 
-const { environmentRoutes } = require("./routes/environmentRoute")
-const { AddressRoutes } = require("./routes/addressRoute")
-const { TimerRoutes} = require("./routes/timerRoute")
-const { UserRoutes} = require("./routes/userRoute")
-const { UserWalletRoutes} = require("./routes/userWalletRoute")
-const { addSetupRoutes } = require("./routes/setup.js");
-const { createWallet,sendTransactionWallet,showTransactionWallet,sendTransactionUserWallet } = require("./routes/wallet.js");
-const { TruffleRoutes } = require("./routes/truffleRoute")
-
-
-const { handleServerSideAuth, authenticateToken } = require("./routes/auth.js");
-
-
+import { handleServerSideAuth, authenticateToken } from "./routes/auth.js";
 
 function addV1Routes(app) {
-  // User API routes
-/*
-  require('./routes/loginUser')(app);
-  require('./routes/registerUser')(app);
-  require('./routes/forgotPassword')(app);
-  require('./routes/resetPassword')(app);
-  require('./routes/updatePassword')(app);
-  require('./routes/updatePasswordViaEmail')(app);
-  require('./routes/findUsers')(app);
-  require('./routes/deleteUser')(app);
-  require('./routes/updateUser')(app);
-*/
   const swaggerOptions = {
     info: {
       version: "v1",
@@ -63,22 +45,12 @@ function addV1Routes(app) {
   TruffleRoutes(app)
   UserWalletRoutes(app)
 
-  const {
-    listAssets,
-    createAsset,
-    readAsset,
-    deleteAsset,
-    sendAsset,
-    readAssetRange,
-    signTransfer,
-  } = require("./routes/assets.js");
-  
-  const {
-    getBlockchain,
-  } = require("../common/blockchain.js");
-  
+  import { listAssets, createAsset, readAsset, deleteAsset, sendAsset, readAssetRange, signTransfer } from "./routes/assets.js";
+
+  import { getBlockchain } from "../common/blockchain.js";
+
   let blockchain;
-  
+
   (async () => {
     blockchain = await getBlockchain();
   })();
@@ -103,7 +75,7 @@ function addV1Routes(app) {
    * @return {AuthResponse} 200 - success response
    */
   app.post("/api/v1/authorizeServer", async (req, res) => {
-    console.log("req",req);
+    console.log("req", req);
     return await handleServerSideAuth(req, res);
   });
 
@@ -288,9 +260,9 @@ function addV1Routes(app) {
    * @param {string} toUserAddress.required - Asset received by this user (public address)
    * @param {string} amount.required - Asset received by this user (public address)
    */
-   app.post("/api/v1/wallet/send", authenticateToken, async (req, res) => {
+  app.post("/api/v1/wallet/send", authenticateToken, async (req, res) => {
     return await sendTransactionWallet(req, res);
-  }); 
+  });
 
   /**
    * POST /api/v1/user-wallet-data/send
@@ -302,10 +274,10 @@ function addV1Routes(app) {
    * @param {string} toUserId.required - Asset received by this user (public address)
    * @param {string} amount.required - Asset received by this user (public address)
    */
-   app.post("/api/v1/user-wallet-data/send", authenticateToken, async (req, res) => {
+  app.post("/api/v1/user-wallet-data/send", authenticateToken, async (req, res) => {
     return await sendTransactionUserWallet(req, res);
-  }); 
-  
+  });
+
   /**
    * GET /api/v1/assets/:address/:mainnetAddress
    * @summary List assets for a user
@@ -315,7 +287,7 @@ function addV1Routes(app) {
    * @param {string} address.path.required - Address of the user to list assets for
    * @param {string} mainnetAddress.path.optional - Mainnet address of the user to list assets for (optional)
    */
-   app.get(
+  app.get(
     "/api/v1/wallet/balance/:address/?", authenticateToken, async (req, res) => {
       return await showTransactionWallet(req, res);
     }
@@ -323,6 +295,4 @@ function addV1Routes(app) {
 
 }
 
-module.exports = {
-  addV1Routes,
-};
+export default addV1Routes

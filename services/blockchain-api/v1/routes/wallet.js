@@ -1,21 +1,10 @@
-const bip39 = require("bip39");
-const { hdkey } = require("ethereumjs-wallet");
-const { setCorsHeaders } = require("../../common/utils.js");
-const { ResponseStatus } = require("../enums.js");
-const {
-  DEVELOPMENT
-} = require("../../common/environment.js");
-const { default: Web3 } = require("web3");
-const {
-  getBlockchain,
-  runCustodialTransaction,
-  runCustodialWalletTransaction,
-  runCustodialWalletBalance
-} = require("../../common/blockchain.js");
-
-const { Sequelize } = require("sequelize");
-
-const sequelize = require("../../../db")
+import bip39 from "bip39";
+import { hdkey } from "ethereumjs-wallet";
+import sequelize from "../../../db";
+import { runCustodialWalletBalance, runCustodialWalletTransaction } from "../../common/blockchain.js";
+import { DEVELOPMENT } from "../../common/environment.js";
+import { setCorsHeaders } from "../../common/utils.js";
+import { ResponseStatus } from "../enums.js";
 
 async function createWalletInternal() {
   
@@ -205,7 +194,7 @@ async function showTransactionWallet(req, res) {
   }
 }
 
-module.exports = {
+export default {
   createWallet,
   createWalletInternal,
   sendTransactionWallet,

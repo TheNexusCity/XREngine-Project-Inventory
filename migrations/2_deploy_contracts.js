@@ -47,7 +47,7 @@ const {
   MINTING_FEE
 } = require("../../common/environment.js");
 
-module.exports = async function (deployer) {
+export default async function (deployer) {
   //set network type from run argument.like truffle migrate --reset development
   const networkType = NetworkTypes[process.argv[4]];
   if (!networkType)

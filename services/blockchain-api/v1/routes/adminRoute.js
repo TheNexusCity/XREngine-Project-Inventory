@@ -1,10 +1,10 @@
-const crypto = require("crypto");
-const { ResponseStatus } = require("../enums");
-const { AdminData, OnBoardingData, UserData } = require("../sequelize");
-const { setCorsHeaders } = require("../../common/utils");
-const { sendMessage } = require("../../common/sesClient");
-const { CONSOLE_WEB_URL, CONSOLE_WEB_URL_AUTHENTICATE, DEVELOPMENT, AUTH_SECRET_KEY, AUTH_TOKEN_SECRET } = require("../../common/environment");
-const jwt = require("jsonwebtoken");
+import crypto from "crypto";
+import { ResponseStatus } from "../enums";
+import { AdminData, OnBoardingData, UserData } from "../sequelize";
+import { setCorsHeaders } from "../../common/utils";
+import { sendMessage } from "../../common/sesClient";
+import { CONSOLE_WEB_URL, CONSOLE_WEB_URL_AUTHENTICATE, DEVELOPMENT, AUTH_SECRET_KEY, AUTH_TOKEN_SECRET } from "../../common/environment";
+import jwt from "jsonwebtoken";
 
 async function AdminRoutes(app) {
   /**
@@ -260,6 +260,6 @@ function validateEmail(email) {
   return re.test(email);
 }
 
-module.exports = {
+export default {
   AdminRoutes,
 };

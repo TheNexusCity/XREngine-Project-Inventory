@@ -1,5 +1,5 @@
-var cp = require('child_process');
-var WebSocket = require('ws');
+import cp from "child_process";
+import WebSocket from "ws";
 
 function createDeployer(wsPort = 3033){
 var ws;
@@ -100,4 +100,4 @@ var _exec = function (uuid, args) {
 return wss;
 }
 
-module.exports = createDeployer;
+export default createDeployer;

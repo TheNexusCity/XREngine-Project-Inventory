@@ -1,4 +1,4 @@
-import { addV1Routes } from './v1/index.js'
+import addV1Routes from './v1/index.js'
 import createDeployer from "./deployer";
 import { Application } from '../../../../../server-core/declarations.js';
 

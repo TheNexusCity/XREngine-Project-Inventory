@@ -29,7 +29,7 @@
  *         - password
  */
 
-module.exports = (sequelize, Sequelize) => sequelize.define("ADDRESS_DATA", {
+export default (sequelize, Sequelize) => sequelize.define("ADDRESS_DATA", {
   email : {
     type: Sequelize.STRING,
     primaryKey: true

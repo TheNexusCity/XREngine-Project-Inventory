@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
 
-import "./ERC20Capped.sol";
-import "./SafeMath.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC20Capped.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
 
 /** @title Extension of {ERC20} that adds a cap to the supply of assets. */
 contract Currency is ERC20Capped {

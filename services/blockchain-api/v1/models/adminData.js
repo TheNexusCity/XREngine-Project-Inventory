@@ -13,7 +13,7 @@
  *         - TOKEN
  */
 
-module.exports = (sequelize, Sequelize) =>
+export default (sequelize, Sequelize) =>
   sequelize.define("ADMIN_DATA", {
     email: {
       type: Sequelize.STRING,

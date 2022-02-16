@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   'fail-zero': false,
   parallel: false,
   spec: ['tests/**/*.test.ts'],

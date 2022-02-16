@@ -1,9 +1,10 @@
-const HDWalletProvider = require("@truffle/hdwallet-provider");
-require("dotenv").config();
+import HDWalletProvider from "@truffle/hdwallet-provider";
+import { config } from "dotenv";
+config();
 
 // TODO: Replace dotenv with mysql calls
 
-module.exports = {
+export default {
   contracts_directory: "./solidity",
   networks: {
     /*

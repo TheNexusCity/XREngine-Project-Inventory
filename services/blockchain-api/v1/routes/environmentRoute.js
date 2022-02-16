@@ -1,5 +1,5 @@
-const { EnvironmentData } = require("../sequelize");
-const { ResponseStatus } = require("../enums");
+import { EnvironmentData } from "../sequelize";
+import { ResponseStatus } from "../enums";
 
 async function environmentRoutes(app) {
 
@@ -35,7 +35,7 @@ async function environmentRoutes(app) {
 
 
 
-module.exports = {
+export default {
     environmentRoutes
 };
   

@@ -3,6 +3,6 @@ const ResponseStatus = {
   Error: "error",
 };
 
-module.exports = {
+export default {
   ResponseStatus,
 };

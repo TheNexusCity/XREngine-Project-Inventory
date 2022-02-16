@@ -1,15 +1,15 @@
-const dotenv = require('dotenv');
+import dotenv from "dotenv";
 dotenv.config();
-const Sequelize = require('sequelize');
-const UserModel = require('./models/usersData');
-const AdminModel = require('./models/adminData');
-const AddressDataModel = require('./models/addressData');
-const EnvironmentDataModel = require('./models/environmentData');
-const OnboardingDataModel = require('./models/onboardingData');
-const TimerDataModel = require("./models/timerData");
-const UserWalletDataModel = require("./models/userWalletData");
+import Sequelize from "sequelize";
+import UserModel from "./models/usersData";
+import AdminModel from "./models/adminData";
+import AddressDataModel from "./models/addressData";
+import EnvironmentDataModel from "./models/environmentData";
+import OnboardingDataModel from "./models/onboardingData";
+import TimerDataModel from "./models/timerData";
+import UserWalletDataModel from "./models/userWalletData";
 
-const sequelize = require("../../db")
+import sequelize from "../../db";
 const AdminData = AdminModel(sequelize, Sequelize);
 const UserData = UserModel(sequelize, Sequelize);
 const AddressData = AddressDataModel(sequelize, Sequelize);
@@ -25,4 +25,4 @@ sequelize.sync().then(() => {
 
 
 
-module.exports = { AdminData, AddressData, EnvironmentData, OnBoardingData, UserData, TimerData, UserWalletData, sequelize };
+export default { AdminData, AddressData, EnvironmentData, OnBoardingData, UserData, TimerData, UserWalletData, sequelize };

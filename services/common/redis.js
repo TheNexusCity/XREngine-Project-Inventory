@@ -1,16 +1,11 @@
-const redis = require("redis");
-const redisearch = require("redis-redisearch");
+import redis from "redis";
+import redisearch from "redis-redisearch";
+import { makePromise } from "./utils.js";
+import { ids } from "./constants.js";
+import { REDIS_KEY } from "./environment.js";
+
 redisearch(redis);
 rejson(redis);
-const { makePromise } = require("./utils.js");
-const { ids } = require("./constants.js");
-
-const { Sequelize } = require("sequelize");
-const {
-  REDIS_KEY
-} = require("./environment.js");
-
-const sequelize = require("../../db")
 
 let redisClient = null;
 let loadPromise = null;
@@ -149,7 +144,7 @@ const parseRedisItems = (result) => {
   return items;
 };
 
-module.exports = {
+export default {
   connect,
   getRedisClient,
   getRedisItem,

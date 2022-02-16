@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   mainnet: {
     Currency: 1,
     Inventory: 2,

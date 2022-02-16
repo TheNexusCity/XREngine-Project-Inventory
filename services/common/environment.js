@@ -1,14 +1,13 @@
-const dotenv = require("dotenv");
-require('dotenv').config();
+import dotenv from "dotenv";
+import { config } from "dotenv";
+config();
 
 dotenv.config({
   path: `../../.env`,
 });
-const { Sequelize, Model, DataTypes } = require("sequelize");
 
 console.log("in environment");
-const sequelize = require("../../db")
-const { QueryTypes } = require('sequelize');
+import sequelize from "../../db";
 
   async function getGlobal(){
     let data;
@@ -80,7 +79,7 @@ const ASSET_CONTRACT_SYMBOL = process.env.ASSET_CONTRACT_SYMBOL;
 const ASSETS_ARE_MINTABLE = process.env.ASSETS_ARE_MINTABLE;
 const ASSET_BASE_URI = process.env.ASSET_BASE_URI;
 
-module.exports = {
+export default {
   INFURA_PROJECT_ID,
   ETHEREUM_HOST,
   POLYGON_VIGIL_KEY,

@@ -1,9 +1,7 @@
-const { AddressData } = require("../sequelize");
-const { ResponseStatus } = require("../enums")
+import { AddressData } from "../sequelize";
+import { ResponseStatus } from "../enums";
 
 async function AddressRoutes(app){
-
-
     app.get("/api/v1/address-data", async (req,res,next)=>{
         try{
             let networkType  = req.query.networkType
@@ -17,9 +15,8 @@ async function AddressRoutes(app){
             res.status(400).end(JSON.stringify({"status":ResponseStatus.Error, "message": "Data cannot be fetched."}))
         }
     })
-
 }
 
-module.exports = {
+export default {
     AddressRoutes
 };

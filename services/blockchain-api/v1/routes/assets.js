@@ -1,38 +1,16 @@
-const path = require("path");
-const bip39 = require("bip39");
-const axios = require('axios');
-const { hdkey } = require("ethereumjs-wallet");
-const {
-  getBlockchain,
-  runCustodialTransaction
-} = require("../../common/blockchain.js");
-const {
-  makePromise,
-  setCorsHeaders,
-} = require("../../common/utils.js");
-const {
-  getRedisItem,
-  parseRedisItems,
-  redisClient
-} = require("../../common/redis.js");
-const {
-  redisPrefixes,
-  assetIndexName,
-  burnAddress,
-  zeroAddress,
-} = require("../../common/constants.js");
-const { ResponseStatus } = require("../enums.js");
+import path from "path";
+import bip39 from "bip39";
+import axios from "axios";
+import { hdkey } from "ethereumjs-wallet";
+import { getBlockchain, runCustodialTransaction } from "../../common/blockchain.js";
+import { makePromise, setCorsHeaders } from "../../common/utils.js";
+import { getRedisItem, parseRedisItems, redisClient } from "../../common/redis.js";
+import { redisPrefixes, assetIndexName, burnAddress, zeroAddress } from "../../common/constants.js";
+import { ResponseStatus } from "../enums.js";
 
-const {
-  DEVELOPMENT,
-  PINATA_API_KEY,
-  PINATA_SECRET_API_KEY,
-  MINTING_FEE,
-  ASSET_CONTRACT_NAME,
-  MAINNET_MNEMONIC
-} = require("../../common/environment.js");
+import { DEVELOPMENT, PINATA_API_KEY, PINATA_SECRET_API_KEY, MINTING_FEE, ASSET_CONTRACT_NAME, MAINNET_MNEMONIC } from "../../common/environment.js";
 
-const pinataSDK = require("@pinata/sdk");
+import pinataSDK from "@pinata/sdk";
 const pinata =
   PINATA_API_KEY && PINATA_API_KEY !== ""
     ? pinataSDK(PINATA_API_KEY, PINATA_SECRET_API_KEY)
@@ -59,7 +37,7 @@ const pinataOptions = {
 
 const network = process.env.PRODUCTION ? "polygon" : "testnetpolygon";
 
-const { Readable } = require("stream");
+import { Readable } from "stream";
 
 let contracts;
 
@@ -595,7 +573,7 @@ async function updatePublicAsset(req, res, { contracts }) {
   }
 }
 
-module.exports = {
+export default {
   listAssets,
   createAsset,
   updatePublicAsset,

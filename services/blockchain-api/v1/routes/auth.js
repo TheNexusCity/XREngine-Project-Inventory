@@ -1,12 +1,8 @@
-const { setCorsHeaders } = require("../../common/utils.js");
-const { ResponseStatus } = require("../enums.js");
-const {
-  DEVELOPMENT,
-  AUTH_TOKEN_SECRET,
-  AUTH_SECRET_KEY,
-} = require("../../common/environment.js");
+import { setCorsHeaders } from "../../common/utils.js";
+import { ResponseStatus } from "../enums.js";
+import { DEVELOPMENT, AUTH_TOKEN_SECRET, AUTH_SECRET_KEY } from "../../common/environment.js";
 
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
  function authenticateToken(req, res, next) {  
   const authHeader = req.headers["authorization"];
@@ -51,7 +47,7 @@ async function handleServerSideAuth(req, res) {
   return res.json({ status: ResponseStatus.Success, accessToken, error: null });
 }
 
-module.exports = {
+export default {
   handleServerSideAuth,
   authenticateToken,
 };

@@ -1,10 +1,5 @@
-const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
-const {
-  SES_REGION,
-  SES_ACCESS_ID,
-  SES_ACCESS_KEY,
-  SES_SENDER_ADDRESS,
-} = require("./environment.js");
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import { SES_REGION, SES_ACCESS_ID, SES_ACCESS_KEY, SES_SENDER_ADDRESS } from "./environment.js";
 
 // Create SES service object.
 const sesClient = new SESClient({
@@ -52,6 +47,6 @@ async function sendMessage(toAddress, subject, message, messageHtml) {
   }
 }
 
-module.exports = {
+export default {
   sendMessage,
 };

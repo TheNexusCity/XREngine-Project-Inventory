@@ -41,7 +41,7 @@ const burnAddress = "0x000000000000000000000000000000000000dEaD";
 const proofOfAddressMessage = `Proof of address.`;
 
 const maxFileSize = 50 * 1024 * 1024;
-module.exports = {
+export default {
   maxFileSize,
   burnAddress,
   proofOfAddressMessage,

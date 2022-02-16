@@ -1,5 +1,5 @@
-const exec = require("child_process").exec;
-const { OnBoardingData } = require("../sequelize");
+import { exec as exec } from "child_process";
+import { OnBoardingData } from "../sequelize";
 
 
 async function TruffleRoutes(app){
@@ -54,6 +54,6 @@ async function TruffleRoutes(app){
 
 }
 
-module.exports = {
+export default {
     TruffleRoutes
 };

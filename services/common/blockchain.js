@@ -1,21 +1,16 @@
-const dns = require("dns");
-const Web3 = require("web3");
-const { hdkey } = require("ethereumjs-wallet");
-const bip39 = require("bip39");
-const { Transaction } = require("@ethereumjs/tx");
-const Common = require ("@ethereumjs/common").default;
+import dns from "dns";
+import Web3 from "web3";
+import { hdkey } from "ethereumjs-wallet";
+import bip39 from "bip39";
+import { Transaction } from "@ethereumjs/tx";
 
-//const addresses = require("../../config/addresses.js");
-const abis = require("../../config/abi.js");
+import abis from "../../config/abi.js";
 
 const network = process.env.PRODUCTION ? "polygon" : "testnetpolygon";
 
-const sequelize = require("../../db")
+import sequelize from "../../db";
 
-const {
-  INFURA_PROJECT_ID,
-  POLYGON_VIGIL_KEY
-} = require("./environment.js");
+import { INFURA_PROJECT_ID, POLYGON_VIGIL_KEY } from "./environment.js";
 
 let web3,
   web3sockets,
@@ -232,7 +227,7 @@ const runCustodialTransaction = mnemonic => async (contractName, method, ...args
   return receipt;
 };
 
-module.exports = {
+export default {
   getBlockchain,
   getPastEvents,
   runCustodialTransaction,

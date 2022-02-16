@@ -1,8 +1,5 @@
-const {
-  identityKeys,
-  zeroAddress,
-} = require("./constants.js");
-const { getBlockchain, getPastEvents } = require("./blockchain.js");
+import { identityKeys, zeroAddress } from "./constants.js";
+import { getBlockchain, getPastEvents } from "./blockchain.js";
 
 const _log = async (text, p) => {
   try {
@@ -669,7 +666,7 @@ const getAllWithdrawsDeposits = (contractName) => async (chainName) => {
   };
 };
 
-module.exports = {
+export default {
   getChainAsset,
   getChainIdentity,
   getChainOwnerAsset,
