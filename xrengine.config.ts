@@ -4,11 +4,11 @@ const config: ProjectConfigInterface = {
   onEvent: undefined,
   thumbnail: '/static/xrengine_thumbnail.jpg',
   routes: {
-    '/inventory': { component: () => import('./components/Inventory') },
-    '/trading': { component: () => import('./components/Trading') },
-    '/wallet': { component: () => import('./components/Wallet') }
+    '/inventory': { component: () => import('./packages/client/src/components/Inventory') },
+    '/trading': { component: () => import('./packages/client/src/components/Trading') },
+    '/wallet': { component: () => import('./packages/client/src/components/Wallet') }
   },
-  webappInjection: () => import('./components/webappInjection'),
+  webappInjection: () => import('./packages/client/src/components/webappInjection'),
   services: './services/services.ts',
   databaseSeed: undefined
 }

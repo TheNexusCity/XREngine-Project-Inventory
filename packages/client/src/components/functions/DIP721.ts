@@ -1,5 +1,5 @@
 import { Principal } from '@dfinity/principal'
-import { NFTIDL } from '../../services/util/nft.did'
+import { NFTIDL} from '../../../../server/src/utils/nft.did'
 
 const nftCanisterId = 'vlhm2-4iaaa-aaaam-qaatq-cai'
 

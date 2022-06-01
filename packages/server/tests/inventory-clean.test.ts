@@ -1,5 +1,5 @@
 import assert from 'assert'
-import app from '@xrengine/server/src/app'
+import app from "../src/app"
 import dataToBeSent from './inventory-item-type.test'
 import data from './inventory-item.test'
 

@@ -1,6 +1,6 @@
 import { Sequelize, DataTypes, Model } from 'sequelize'
 import { Application } from '@xrengine/server-core/declarations'
-import { InventoryItemInterface } from '../../interfaces/InventoryInterfaces'
+import { InventoryItemInterface } from '../../../client/src/interfaces/InventoryInterfaces'
 
 export default (app: Application): any => {
   const sequelizeClient: Sequelize = app.get('sequelizeClient')

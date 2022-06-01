@@ -1,9 +1,9 @@
 module.exports = {
   'fail-zero': false,
   parallel: false,
-  spec: ['tests/**/*.test.ts'],
+  spec: ['packages/server/tests/**/*.test.ts'],
   require: [
-    'tests/mocha.env', // init env here
+    'packages/server/tests/mocha.env', // init env here
     'ts-node/register'
   ],
   extension: [
