@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Typography from '@mui/material/Typography'
 import { Stack } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
-import styles from '../UserMenu.module.scss'
+// import styles from '../UserMenu.module.scss'
 
 const useStyles = makeStyles({
   inventoryItem: {
@@ -83,7 +83,7 @@ const MainComponent = (props: any) => {
               <img className={`${classes.inventoryItemPreview}`} src={value.url} alt="" />
             ) : null}
 
-            <div className={value.name.length > 0 ? styles.cssMarquee : styles.cssMarquee}>
+            <div>
               <Typography className={`${classes.inventoryItemName}`}>{`${value.name}`}</Typography>
             </div>
 

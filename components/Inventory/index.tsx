@@ -1,7 +1,7 @@
 import { AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 import React, { useEffect, useState } from 'react'
 import InventoryContent from './InventoryContent'
-import styles from '@xrengine/client-core/src/user/components/UserMenu/UserMenu.module.scss'
+import styles from '../style/ui.module.scss'
 import { InventoryService, useInventoryState } from '../services/InventoryService'
 
 interface Props {
