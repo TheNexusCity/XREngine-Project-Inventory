@@ -72,7 +72,7 @@ export const InventoryService = {
     try {
       const response = await client.service('user').get(id)
 
-      let invenData: any = await client.service('inventory-item').find({ query: { isCoin: true } })
+      let invenData: any = await client.service('inventory-item').find({ query: { isCoin: true,  userId: id } })
       const invenItem = invenData.data[0]
 
       const inventory_items: any = []

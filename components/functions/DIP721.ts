@@ -13,6 +13,7 @@ export const getMyDIP721Tokens = () => {
     }
 
     const wallet = await (window as any).ic?.plug?.getPrincipal()
+    console.log(wallet)
     const walletAddress = wallet.toText()
 
     const nftActor = await (window as any).ic?.plug?.createActor({
