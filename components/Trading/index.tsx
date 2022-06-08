@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import TradingContent from './TradingContent'
-import styles from '@xrengine/client-core/src/user/components/UserMenu/UserMenu.module.scss'
+import styles from '../style/ui.module.scss'
 import { TradingAction, TradingService, useTradingState } from '../services/TradingService'
 import { useDispatch } from '@xrengine/client-core/src/store'
 import { AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'

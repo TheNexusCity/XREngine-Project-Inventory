@@ -19,7 +19,7 @@ import {
   Stack
 } from '@mui/material'
 import { useHistory } from 'react-router-dom'
-import { usePrevious } from '../../../../hooks/usePrevious'
+import { usePrevious } from '@xrengine/client-core/src/hooks/usePrevious'
 
 import ItemSlot from './Slot'
 import DragAndDropAPI from './DragAndDropAPI'
@@ -147,7 +147,7 @@ const InventoryContent = ({
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl)
 
-  const totalPage = Math.ceil(coinData.length / inventoryLimit)
+  const totalPage = Math.ceil(coinData?.length / inventoryLimit)
 
   // Regarding dragging inventory action.
   const [items, setItems] = useState([...coinData])

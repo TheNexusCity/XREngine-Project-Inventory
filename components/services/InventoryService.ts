@@ -1,7 +1,7 @@
 import { Relationship } from '@xrengine/common/src/interfaces/Relationship'
 import { User } from '@xrengine/common/src/interfaces/User'
-import { useDispatch, store } from '../../store'
-import { client } from '../../feathers'
+import { useDispatch, store } from '@xrengine/client-core/src/store'
+import { client } from '@xrengine/client-core/src/feathers'
 import { createState, DevTools, useState, none, Downgraded } from '@speigg/hookstate'
 import { RelationshipSeed } from '@xrengine/common/src/interfaces/Relationship'
 import { getMyDIP721Tokens } from '../functions/DIP721'
@@ -72,7 +72,7 @@ export const InventoryService = {
     try {
       const response = await client.service('user').get(id)
 
-      let invenData: any = await client.service('inventory-item').find({ query: { isCoin: true } })
+      let invenData: any = await client.service('inventory-item').find({ query: { isCoin: true,  userId: id } })
       const invenItem = invenData.data[0]
 
       const inventory_items: any = []

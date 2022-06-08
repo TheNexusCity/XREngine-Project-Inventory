@@ -1,7 +1,7 @@
 import { AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 import React, { useEffect, useState } from 'react'
 import InventoryContent from './InventoryContent'
-import styles from '@xrengine/client-core/src/user/components/UserMenu/UserMenu.module.scss'
+import styles from '../style/ui.module.scss'
 import { InventoryService, useInventoryState } from '../services/InventoryService'
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 
 export const Inventory = (props: Props): any => {
   const inventoryState = useInventoryState()
-  let { isLoading } = inventoryState.value
+  let { data, user, type, isLoading, isLoadingtransfer, coinData } = inventoryState.value
   const authState = useAuthState()
 
   useEffect(() => {
@@ -30,8 +30,14 @@ export const Inventory = (props: Props): any => {
         'Loading...'
       ) : (
         <InventoryContent
-          id={props.id}
-          changeActiveMenu={props.changeActiveMenu}
+        data={data}
+        coinData={coinData}
+        user={user}
+        id={props.id}
+        type={type}
+        changeActiveMenu={props.changeActiveMenu}
+        InventoryService={InventoryService}
+        isLoadingtransfer={isLoadingtransfer}
         />
       )}
     </div>
