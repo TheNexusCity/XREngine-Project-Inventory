@@ -154,6 +154,7 @@ const InventoryContent = ({
   const [draggingSlotId, setDraggingSlot] = useState(null)
   const getItemDataInSlot = (slot) => items.find((item) => item.slot === slot)
 
+  console.log(coinData)
   const swapItemSlots = (oldSlot, newSlot) => {
     setItems((currentState) => {
       let newInventory = [...currentState]

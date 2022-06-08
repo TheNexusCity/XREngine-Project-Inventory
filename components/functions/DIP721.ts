@@ -12,8 +12,8 @@ export const getMyDIP721Tokens = () => {
       console.error('allow the canisters')
     }
 
+
     const wallet = await (window as any).ic?.plug?.getPrincipal()
-    console.log(wallet)
     const walletAddress = wallet.toText()
 
     const nftActor = await (window as any).ic?.plug?.createActor({
@@ -25,7 +25,7 @@ export const getMyDIP721Tokens = () => {
     // const symbol = await nftActor?.symbolDip721()
 
     // My NFTS
-    const myNFTs = await nftActor?.getMetadataForUserDip721(Principal.fromText(walletAddress))
+    const myNFTs = await nftActor?.getMetadataForUser(Principal.fromText(walletAddress))
 
     resolve(myNFTs)
   })

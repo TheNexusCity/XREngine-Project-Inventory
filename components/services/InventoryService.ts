@@ -21,6 +21,7 @@ store.receptors.push((action: InventoryActionType): void => {
   state.batch((s) => {
     switch (action.type) {
       case 'SET_INVENTORY_DATA':
+        console.log(action.data)
         return s.merge({
           data: [...action.data.filter((val) => val.isCoin === false)],
           coinData: [...action.data.filter((val) => val.isCoin === true)]
@@ -72,7 +73,10 @@ export const InventoryService = {
     try {
       const response = await client.service('user').get(id)
 
+      console.log(response)
+
       let invenData: any = await client.service('inventory-item').find({ query: { isCoin: true,  userId: id } })
+      console.log(invenData)
       const invenItem = invenData.data[0]
 
       const inventory_items: any = []
@@ -98,17 +102,17 @@ export const InventoryService = {
        * DIP721 NFT Sync
        */
       const myNFTs = await getMyDIP721Tokens()
-
-      ;(myNFTs as any).forEach((item) => {
-        inventory_items.push({
-          ...invenItem,
-          user_inventory: { quantity: 1 },
-          slot: inventory_items.length,
-          name: item.token_id,
-          url: item.metadata_desc[0].key_val_data[4].val.TextContent
+      if(myNFTs){
+        ;(myNFTs as any).forEach((item) => {
+          inventory_items.push({
+            ...invenItem,
+            user_inventory: { quantity: 1 },
+            slot: inventory_items.length,
+            name: item.token_id,
+            url: item.metadata_desc[0].key_val_data[4].val.TextContent
+          })
         })
-      })
-
+      }
       dispatch(InventoryAction.setinventorydata(inventory_items))
     } catch (err) {
       console.error(err, 'error')
