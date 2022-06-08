@@ -1,5 +1,6 @@
 import { Principal } from '@dfinity/principal'
 import { NFTIDL } from '../util/nft.did'
+import DIP721_V2_IDL from '../util/dip_721_v2.did'
 
 const nftCanisterId = 'vlhm2-4iaaa-aaaam-qaatq-cai'
 
@@ -18,14 +19,17 @@ export const getMyDIP721Tokens = () => {
 
     const nftActor = await (window as any).ic?.plug?.createActor({
       canisterId: nftCanisterId,
-      interfaceFactory: NFTIDL.factory
+      interfaceFactory: DIP721_V2_IDL
     })
+    const name = await nftActor?.name()
+    const symbol = await nftActor?.symbol()
 
-    // const name = await nftActor?.nameDip721()
-    // const symbol = await nftActor?.symbolDip721()
+    console.error('name &&&&&& symbol ------------', name, symbol)
 
     // My NFTS
-    const myNFTs = await nftActor?.getMetadataForUser(Principal.fromText(walletAddress))
+    const myNFTs = await nftActor?.ownerTokenMetadata(Principal.fromText(walletAddress))
+
+    console.error(myNFTs)
 
     resolve(myNFTs)
   })
