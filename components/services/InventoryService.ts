@@ -102,12 +102,15 @@ export const InventoryService = {
       const myNFTs = await getMyDIP721Tokens()
       if(myNFTs){
         ;(myNFTs as any).forEach((item) => {
+          const tempIndex = item.properties.findIndex((property) => property[0] === 'location')
+          const location = item.properties[tempIndex][1]['TextContent']
+
           inventory_items.push({
             ...invenItem,
             user_inventory: { quantity: 1 },
             slot: inventory_items.length,
-            name: item.token_id,
-            url: item.metadata_desc[0].key_val_data[4].val.TextContent
+            name: item.token_identifier,
+            url: location
           })
         })
       }

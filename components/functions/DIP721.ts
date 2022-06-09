@@ -24,12 +24,12 @@ export const getMyDIP721Tokens = () => {
     const name = await nftActor?.name()
     const symbol = await nftActor?.symbol()
 
-    console.error('name &&&&&& symbol ------------', name, symbol)
+    // console.error('name &&&&&& symbol ------------', name, symbol)
 
     // My NFTS
-    const myNFTs = await nftActor?.ownerTokenMetadata(Principal.fromText(walletAddress))
+    const result = await nftActor?.ownerTokenMetadata(Principal.fromText(walletAddress))
 
-    console.error(myNFTs)
+    const myNFTs = result?.Ok ? result?.Ok : []
 
     resolve(myNFTs)
   })
