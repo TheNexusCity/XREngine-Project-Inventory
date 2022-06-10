@@ -20,7 +20,7 @@ Go back to the XREngine root folder and run `npm run install-projects` to instal
 
 ## To run XREngine project
 
-### To start server
+### To start server side
 
 Linux:
 
@@ -32,12 +32,12 @@ Linux:
 - cd XREngine/packages/server 
    run `npm run dev`
 
-### To start Client
+### To start Client side
 
 - cd XREngine/packages/client 
    run `npm run dev`
 
-### To run the project
+### To run the project 
 
 - `https://localhost:3000/`
     
