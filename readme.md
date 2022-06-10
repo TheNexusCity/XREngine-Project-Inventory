@@ -22,6 +22,8 @@ Go back to the XREngine root folder and run `npm run install-projects` to instal
 
 ### To start server
 
+Linux:
+
 - cd script run `sudo docker-compose up` and `sudo bash start-agones.sh` to start agones server.
 
 - cd packages/server 
