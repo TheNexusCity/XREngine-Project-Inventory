@@ -14,7 +14,9 @@ The previous implementation can be found here: https://github.com/XRFoundation/X
 
 - git clone `https://github.com/TheNexusCity/XREngine-Project-Inventory` under the `XREngine/packages/projects/projects` folder.
 
-- cd `XREngine/packages/projects/projects/XREngine-Project-Inventory`
+- cd `XREngine/packages/projects/projects/XREngine-Project-Inventory` and run `code .` to open new window. 
+
+Go back to the XREngine root folder and run `npm run install-projects` to install the project XREngine-Project-Inventory .
 
 ## To run XREngine project
 
@@ -32,3 +34,18 @@ The previous implementation can be found here: https://github.com/XRFoundation/X
 
 - cd XREngine/packages/client 
    run `npm run dev`
+
+### To run the project
+
+- `https://localhost:3000/`
+    
+- `https://localhost:3000/admin` however make sure you are an admin to activate some routes.
+
+- `https://localhost:3000/inventory` to access inventory page.
+- `https://localhost:3000/trading` to access trading page.
+- `https://localhost:3000/wallet` to activate wallet page.
+
+### To use plug wallet
+
+- Make sure to install `plug wallet` extension to load the data.
+- If you visit the `https://localhost:3000/inventory` the plug wallet will appear and it use the imported wallet. 
