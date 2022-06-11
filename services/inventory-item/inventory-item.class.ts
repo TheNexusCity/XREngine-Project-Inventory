@@ -12,13 +12,13 @@ export class InventoryItem extends Service {
   }
   
   async find(params?: Params): Promise<any> {
-    console.log(params)
-    params!.query!.$or = [
-      {
-        userId: params!.query!.userId
-      }
-    ]
-    delete params!.query!.userId
+    console.log("User id ................", params)
+    // params!.query!.$or = [
+    //   {
+    //     userId: params!.query!.userId
+    //   }
+    // ]
+    // delete params!.query!.userId
   
     return super.find(params)
   }

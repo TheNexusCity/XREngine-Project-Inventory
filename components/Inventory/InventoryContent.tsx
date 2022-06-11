@@ -154,6 +154,7 @@ const InventoryContent = ({
   const [draggingSlotId, setDraggingSlot] = useState(null)
   const getItemDataInSlot = (slot) => items.find((item) => item.slot === slot)
 
+
   const swapItemSlots = (oldSlot, newSlot) => {
     setItems((currentState) => {
       let newInventory = [...currentState]
@@ -248,13 +249,12 @@ const InventoryContent = ({
 
   useEffect(() => {
     document.addEventListener('inventoryItemDragged', onInventoryItemDragged)
-
     if (data.length !== 0) {
       setState((prevState: any) => ({
         ...prevState,
         url: data[0].url,
         metadata: data[0].metadata,
-        selectedid: data[0].user_inventory.userInventoryId,
+        selectedid: data[0].user_inventory?.userInventoryId,
         inventory: [...data]
       }))
     }
@@ -309,6 +309,8 @@ const InventoryContent = ({
       }
     }
   }, [selectedtype])
+
+  console.log(items)
 
   return (
     <Box sx={{ p: 2 }} className={`${classes.root} ${classes.contents} invenContentPanel`}>
@@ -422,8 +424,8 @@ const InventoryContent = ({
               </Menu>
               {(selectedtype === '' ? data : inventory).length !== 0 ? (
                 <Stack>
-                  {(selectedtype === '' ? data : inventory).map((value: any, index: number) => (
-                    <Card
+                  {(selectedtype === '' ? data : inventory).map((value: any, index: number) => {
+                    return(<Card
                       key={index}
                       style={{ marginBottom: '8px', padding: '2px' }}
                       onClick={() => {
@@ -431,21 +433,21 @@ const InventoryContent = ({
                           ...prevState,
                           url: value.url,
                           metadata: value.metadata,
-                          selectedid: value.user_inventory.userInventoryId
+                          selectedid: value.user_inventory?.userInventoryId
                         }))
                       }}
                     >
                       <Stack
                         justifyContent="center"
                         alignItems="center"
-                        className={`${selectedid === value.user_inventory.userInventoryId ? classes.selecteditem : ''}`}
+                        className={`${selectedid === value.user_inventory?.userInventoryId ? classes.selecteditem : ''}`}
                       >
                         <img src={value.url} height="100" width="100" alt="" />
                         <Typography>{`Name: ${value.name}`}</Typography>
-                        <Typography>{`Type: ${value.inventory_item_type.inventoryItemType}`}</Typography>
+                        {/* <Typography>{`Type: ${value?.inventory_item_type?.inventoryItemType}`}</Typography> */}
                       </Stack>
                     </Card>
-                  ))}
+                  )})}
                 </Stack>
               ) : (
                 <Stack sx={{ color: 'black' }}>
@@ -455,7 +457,7 @@ const InventoryContent = ({
             </Stack>
           </Grid>
           <Grid item md={6}>
-            {url !== '' && metadata.length !== 0 && (
+            {url !== '' && metadata?.length !== 0 && (
               <Stack justifyContent="center" alignItems="center">
                 <Stack spacing={3} justifyContent="center" alignItems="center">
                   <img src={url} height="200" width="200" alt="" />

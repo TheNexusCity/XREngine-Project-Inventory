@@ -33,7 +33,7 @@ export default (app: Application): any => {
   )
 
   ;(userInventory as any).assocate = (models: any): void => {
-    ;(userInventory as any).belongsTo(models.inventory_item, { required: true, allowNull: false })
+    ;(userInventory as any).hasMany(models.inventory_item, { foreignKey: "userInventoryId" })
     ;(userInventory as any).belongsTo(models.user, { required: true, allowNull: false })
   }
 
