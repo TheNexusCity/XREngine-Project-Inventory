@@ -23,8 +23,8 @@ store.receptors.push((action: InventoryActionType): void => {
       case 'SET_INVENTORY_DATA':
         console.log(action.data)
         return s.merge({
-          ...action.data.filter((val) => val.isCoin !== false),
-          data: action.data,
+          ...action.data.filter((val) => val.isCoin === false),
+          data: [...action.data.filter((val) => val.isCoin === false)],
           coinData: [...action.data.filter((val) => val.isCoin === true)]
         })
       case 'SET_USER_DATA':
@@ -106,7 +106,7 @@ export const InventoryService = {
             ...invenItem,
             user_inventory: { quantity: 1 },
             slot: inventory_items.length,
-            name: item.properties[0][1].TextContent,
+            name: item.token_identifier,
             url: item.properties[5][1].TextContent,
             isCoin: true
           })

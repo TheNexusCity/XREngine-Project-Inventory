@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Typography from '@mui/material/Typography'
 import { Stack } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
-// import styles from '../UserMenu.module.scss'
+import styles from '../style/ui.module.scss'
 
 const useStyles = makeStyles({
   inventoryItem: {
@@ -56,6 +56,7 @@ const useStyles = makeStyles({
 const MainComponent = (props: any) => {
   const classes = useStyles()
 
+
   const getNftType = (url: string) => {
     const elements = url.split('.')
     const fileType = elements[elements.length - 1]
@@ -83,15 +84,15 @@ const MainComponent = (props: any) => {
               <img className={`${classes.inventoryItemPreview}`} src={value.url} alt="" />
             ) : null}
 
-            <div>
+            {/* <div>
               <Typography className={`${classes.inventoryItemName}`}>{`${value.name}`}</Typography>
-            </div>
+            </div> */}
 
-            {/* <video className={`${classes.inventoryItemPreview}`} src={`https://gateway.pinata.cloud/ipfs/QmaqaX1fjJeQdGLxyox5XPFHfk5MG2syGNtS2jn1V8oLz2`} muted autoPlay loop />
+            {/* <video className={`${classes.inventoryItemPreview}`} src={`https://gateway.pinata.cloud/ipfs/QmaqaX1fjJeQdGLxyox5XPFHfk5MG2syGNtS2jn1V8oLz2`} muted autoPlay loop /> */}
 
             <div className={ value.name.length > 0 ? styles.cssMarquee : styles.cssMarquee }>
               <Typography className={`${classes.inventoryItemName}`}>{`Crowns #${value.name}`}</Typography>
-            </div> */}
+            </div>
           </div>
         </div>
       </Stack>

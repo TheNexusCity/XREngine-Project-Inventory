@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 const ExportingComponent = (props : any) => {
     const slotDraggedRef = React.useRef(props.activeDraggedSlot);
 
+    console.log(props)
+
     useEffect(() => {
         slotDraggedRef.current = props.activeDraggedSlot;
     }, [props.activeDraggedSlot])

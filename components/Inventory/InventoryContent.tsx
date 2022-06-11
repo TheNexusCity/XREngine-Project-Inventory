@@ -154,8 +154,7 @@ const InventoryContent = ({
   const [draggingSlotId, setDraggingSlot] = useState(null)
   const getItemDataInSlot = (slot) => items.find((item) => item.slot === slot)
 
-  console.log(coinData)
-  console.log("state========================", state)
+
   const swapItemSlots = (oldSlot, newSlot) => {
     setItems((currentState) => {
       let newInventory = [...currentState]
@@ -312,7 +311,7 @@ const InventoryContent = ({
   }, [selectedtype])
 
   console.log(items)
-  
+
   return (
     <Box sx={{ p: 2 }} className={`${classes.root} ${classes.contents} invenContentPanel`}>
       {/* <Stack sx={{ p: 2 }} className={`${classes.root} ${classes.contents}`} > */}
