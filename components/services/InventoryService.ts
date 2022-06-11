@@ -10,7 +10,7 @@ import { getMyERC721Tokens } from '../functions/ERC721'
 //State
 const state = createState({
   coinData: [] as Array<any>,
-  data: [] as Array<any>,
+  data: [],
   user: [] as Array<any>,
   type: [] as Array<any>,
   isLoading: false,
@@ -23,7 +23,8 @@ store.receptors.push((action: InventoryActionType): void => {
       case 'SET_INVENTORY_DATA':
         console.log(action.data)
         return s.merge({
-          data: [...action.data.filter((val) => val.isCoin === false)],
+          ...action.data.filter((val) => val.isCoin === false),
+          data: action.data,
           coinData: [...action.data.filter((val) => val.isCoin === true)]
         })
       case 'SET_USER_DATA':
@@ -73,8 +74,7 @@ export const InventoryService = {
     try {
       const response = await client.service('user').get(id)
 
-      let invenData: any = await client.service('inventory-item').find({ query: { isCoin: true,  userId: id } })
-      console.log(invenData)
+      let invenData: any = await client.service('inventory-item').find({ query: { isCoin: true }  })
       const invenItem = invenData.data[0]
 
       const inventory_items: any = []
@@ -99,18 +99,20 @@ export const InventoryService = {
       /**
        * DIP721 NFT Sync
        */
-      const myNFTs = await getMyDIP721Tokens()
+      const myNFTs = await getMyDIP721Tokens();
       if(myNFTs){
-        ;(myNFTs as any).forEach((item) => {
+        ;(myNFTs as any).Ok.forEach((item) => {
           inventory_items.push({
             ...invenItem,
             user_inventory: { quantity: 1 },
             slot: inventory_items.length,
-            name: item.token_id,
-            url: item.metadata_desc[0].key_val_data[4].val.TextContent
+            name: item.properties[0][1].TextContent,
+            url: item.properties[5][1].TextContent,
+            isCoin: false
           })
         })
       }
+
       dispatch(InventoryAction.setinventorydata(inventory_items))
     } catch (err) {
       console.error(err, 'error')

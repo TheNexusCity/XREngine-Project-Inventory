@@ -8,6 +8,7 @@ export interface InventoryItemInterface {
   inventoryItemId: string
   name: string
   description: string
+  isCoin: Boolean
   version: number
   metadata: string
   url: string
