@@ -17,18 +17,7 @@ const logRequest = (options = {}) => {
 export default {
   before: {
     all: [],
-    find: [
-      addAssociations({
-        models: [
-          {
-            model: 'inventory-item-type'
-          },
-          {
-            model: 'user'
-          }
-        ]
-      })
-    ],
+    find: [],
     get: [
       addAssociations({
         models: [

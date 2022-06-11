@@ -21,6 +21,11 @@ export default (app: Application): any => {
         type: DataTypes.STRING,
         allowNull: true
       },
+      isCoin: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: false
+      },
       version: DataTypes.INTEGER,
       metadata: {
         type: DataTypes.JSON,
@@ -50,10 +55,8 @@ export default (app: Application): any => {
   )
 
   ;(inventoryItem as any).associate = (models: any): void => {
-    inventoryItem.belongsToMany(models.user, {
-      through: models.user_inventory,
-      foreignKey: 'inventoryItemId'
-    })
+    ;inventoryItem.belongsTo(models.user, { foreignKey: "userId"})
+    ;inventoryItem.belongsTo(models.user_inventory,  { foreignKey: "userInventoryId"})
   }
 
   return inventoryItem

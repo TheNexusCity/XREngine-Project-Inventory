@@ -25,7 +25,8 @@ store.receptors.push((action: WalletActionType): void => {
         return s.merge({
           data: [...action.data.filter((val) => val.isCoin === true)],
           coinData: [...action.data.filter((val) => val.isCoin === true)],
-          coinlimit: action.data.filter((val) => val.isCoin === true)[0].user_inventory?.quantity
+          coinlimit: 1
+          //action.data.filter((val) => val.isCoin === true)[0].user_inventory?.quantity
         })
       case 'RECEIVE_ID':
         return s.merge({
