@@ -311,6 +311,8 @@ const InventoryContent = ({
     }
   }, [selectedtype])
 
+  console.log(items)
+  
   return (
     <Box sx={{ p: 2 }} className={`${classes.root} ${classes.contents} invenContentPanel`}>
       {/* <Stack sx={{ p: 2 }} className={`${classes.root} ${classes.contents}`} > */}
