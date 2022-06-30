@@ -1,15 +1,16 @@
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import makeStyles from '@mui/styles/makeStyles'
-import { ArrowBackIos, ArrowForwardIos, FilterList } from '@mui/icons-material'
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
+import { usePrevious } from '@xrengine/client-core/src/hooks/usePrevious'
+
+import { ArrowBackIos, ArrowForwardIos, FilterList } from '@mui/icons-material'
 import {
-  Grid,
-  Divider,
   Box,
   Card,
   CircularProgress,
+  Divider,
   FormControl,
+  Grid,
   IconButton,
   InputLabel,
   LinearProgress,
@@ -18,11 +19,13 @@ import {
   Select,
   Stack
 } from '@mui/material'
-import { useHistory } from 'react-router-dom'
-import { usePrevious } from '@xrengine/client-core/src/hooks/usePrevious'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import makeStyles from '@mui/styles/makeStyles'
 
-import ItemSlot from './Slot'
 import DragAndDropAPI from './DragAndDropAPI'
+import ItemSlot from './Slot'
+
 
 const useStyles = makeStyles({
   root1: {
@@ -142,6 +145,13 @@ const InventoryContent = ({
     inventory: [],
     currentPage: 1
   })
+
+  // const [modal, setModal] = useState(false);
+
+  // const toggleModal = () => {
+  //   setModal(!modal)
+  // }
+
   const { url, metadata, userid, selectedid, anchorEl, selectedtype, inventory } = state
   const prevState = usePrevious({ selectedtype })
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -153,7 +163,6 @@ const InventoryContent = ({
   const [items, setItems] = useState([...coinData])
   const [draggingSlotId, setDraggingSlot] = useState(null)
   const getItemDataInSlot = (slot) => items.find((item) => item.slot === slot)
-
 
   const swapItemSlots = (oldSlot, newSlot) => {
     setItems((currentState) => {
@@ -354,6 +363,7 @@ const InventoryContent = ({
                     >
                       <ArrowBackIos />
                     </IconButton>
+
                     <Typography>Page {`${state.currentPage} / ${totalPage}`}</Typography>
                     <IconButton
                       sx={{ svg: { color: 'white' } }}
@@ -373,6 +383,16 @@ const InventoryContent = ({
             </Stack>
           </Stack>
         </Stack>
+      </Stack>
+
+      <Stack direction="row" justifyContent="space-between" className={classes.title}>
+        <IconButton
+          sx={{ svg: { color: 'white' } }}
+          className={classes.backButton}
+          onClick={() => changeActiveMenu(null)}
+        >
+          <ArrowBackIos />
+        </IconButton>
       </Stack>
       <Divider />
       {data.length !== 0 ? (
@@ -425,29 +445,33 @@ const InventoryContent = ({
               {(selectedtype === '' ? data : inventory).length !== 0 ? (
                 <Stack>
                   {(selectedtype === '' ? data : inventory).map((value: any, index: number) => {
-                    return(<Card
-                      key={index}
-                      style={{ marginBottom: '8px', padding: '2px' }}
-                      onClick={() => {
-                        setState((prevState) => ({
-                          ...prevState,
-                          url: value.url,
-                          metadata: value.metadata,
-                          selectedid: value.user_inventory?.userInventoryId
-                        }))
-                      }}
-                    >
-                      <Stack
-                        justifyContent="center"
-                        alignItems="center"
-                        className={`${selectedid === value.user_inventory?.userInventoryId ? classes.selecteditem : ''}`}
+                    return (
+                      <Card
+                        key={index}
+                        style={{ marginBottom: '8px', padding: '2px' }}
+                        onClick={() => {
+                          setState((prevState) => ({
+                            ...prevState,
+                            url: value.url,
+                            metadata: value.metadata,
+                            selectedid: value.user_inventory?.userInventoryId
+                          }))
+                        }}
                       >
-                        <img src={value.url} height="100" width="100" alt="" />
-                        <Typography>{`Name: ${value.name}`}</Typography>
-                        <Typography>{`Type: ${value?.inventory_item_type?.inventoryItemType}`}</Typography>
-                      </Stack>
-                    </Card>
-                  )})}
+                        <Stack
+                          justifyContent="center"
+                          alignItems="center"
+                          className={`${
+                            selectedid === value.user_inventory?.userInventoryId ? classes.selecteditem : ''
+                          }`}
+                        >
+                          <img src={value.url} height="100" width="100" alt="" />
+                          <Typography>{`Name: ${value.name}`}</Typography>
+                          <Typography>{`Type: ${value?.inventory_item_type?.inventoryItemType}`}</Typography>
+                        </Stack>
+                      </Card>
+                    )
+                  })}
                 </Stack>
               ) : (
                 <Stack sx={{ color: 'black' }}>
@@ -529,6 +553,6 @@ const InventoryContent = ({
       {/* </Stack> */}
     </Box>
   )
-}
+}   
 
 export default InventoryContent
