@@ -1,7 +1,7 @@
-## In Progress
+## IC Inventory for XREngine
 
-This is a project that enables a database or blockchain backed inventory system. It provides the database tables, feathersjs services, user table integration, UI components and optional Blockchain-in-a-box connectivity.
+Enables blockchain-backed inventory system using the DIP-721v2 standard.
 
-The code currently exists in a partially implemented state, there are missing pieces and it needs a big re-thinking and refactor.
+Formatted as an XREngine project. Also available as a standalone React component.
 
-The previous implementation can be found here: https://github.com/XRFoundation/XREngine/pull/5070
+https://user-images.githubusercontent.com/18633264/173187332-a44d9523-2235-4940-ba7d-d960ab53c99d.mp4

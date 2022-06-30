@@ -29,6 +29,7 @@ export const getMyDIP721Tokens = () => {
     const name = await nftActor?.name()
     const symbol = await nftActor?.symbol()
 
+<<<<<<< HEAD
     console.log('name &&&&&& symbol ------------', name, symbol);
 console.log(nftActor);
 
@@ -37,6 +38,11 @@ console.log(nftActor);
 
     console.log("NFTs",myNFTs)
 
+=======
+    // My NFTS
+    const myNFTs = await nftActor?.ownerTokenMetadata(Principal.fromText(walletAddress))
+
+>>>>>>> 15f0ca47ffb0e7773784a8efac13ba37b2350e67
     resolve(myNFTs)
   })
 }
