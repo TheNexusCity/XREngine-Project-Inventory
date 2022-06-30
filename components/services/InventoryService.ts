@@ -100,6 +100,9 @@ export const InventoryService = {
        * DIP721 NFT Sync
        */
       const myNFTs = await getMyDIP721Tokens();
+
+      console.error('myNFTs - ', myNFTs)
+
       if(myNFTs){
         ;(myNFTs as any).Ok.forEach((item) => {
           inventory_items.push({
@@ -108,6 +111,7 @@ export const InventoryService = {
             slot: inventory_items.length,
             name: item.token_identifier,
             url: item.properties[5][1].TextContent,
+            type: item.properties[2][1].TextContent,
             isCoin: true
           })
         })
