@@ -107,7 +107,7 @@ export const InventoryService = {
             user_inventory: { quantity: 1 },
             slot: inventory_items.length,
             name: item.token_identifier,
-            url: item.properties[5][1].TextContent,
+            url: item.properties[0][1].TextContent,
             isCoin: true
           })
         })

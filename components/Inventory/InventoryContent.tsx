@@ -231,11 +231,12 @@ const InventoryContent = ({
       ...prevState,
       currentPage: prevState.currentPage + 1
     }))
+    
   }
   const goToPrevPage = () => {
     setState((prevState) => ({
       ...prevState,
-      currentPage: prevState.currentPage - 1
+      currentPage: prevState.currentPage > 1 ? prevState.currentPage - 1 : 1
     }))
   }
   const getCurrentSlots = () => {
@@ -350,12 +351,13 @@ const InventoryContent = ({
                       sx={{ svg: { color: 'white' } }}
                       className={`${classes.invenPaginationBtn} ${state.currentPage <= 1 ? 'disable' : ''}`}
                       onClick={() => goToPrevPage()}
-                      disabled={state.currentPage <= 1 ? true : false}
+                      disabled={state.currentPage < 1 ? true : false}
                     >
                       <ArrowBackIos />
                     </IconButton>
-                    <Typography>Page {`${state.currentPage} / ${totalPage}`}</Typography>
-                    <IconButton
+                    <Typography>Page {`${state.currentPage} - ${totalPage}`}</Typography>
+                  
+                   <IconButton
                       sx={{ svg: { color: 'white' } }}
                       className={`${classes.invenPaginationBtn} ${state.currentPage >= totalPage ? 'disable' : ''}`}
                       onClick={() => goToNextPage()}
@@ -363,6 +365,7 @@ const InventoryContent = ({
                     >
                       <ArrowForwardIos />
                     </IconButton>
+                   
                   </Stack>
                 </Stack>
               ) : (
@@ -375,7 +378,7 @@ const InventoryContent = ({
         </Stack>
       </Stack>
       <Divider />
-      {data.length !== 0 ? (
+      {data.length != 0 ? (
         <Grid container spacing={2} className={`${classes.p10} ${classes.contents}`}>
           <Grid item md={4} mx={2}>
             <Stack className={classes.card}>
@@ -443,6 +446,7 @@ const InventoryContent = ({
                         className={`${selectedid === value.user_inventory?.userInventoryId ? classes.selecteditem : ''}`}
                       >
                         <img src={value.url} height="100" width="100" alt="" />
+                        
                         <Typography>{`Name: ${value.name}`}</Typography>
                         <Typography>{`Type: ${value?.inventory_item_type?.inventoryItemType}`}</Typography>
                       </Stack>
