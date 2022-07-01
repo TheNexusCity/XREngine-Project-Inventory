@@ -105,17 +105,13 @@ export const InventoryService = {
 
       if(myNFTs){
         ;(myNFTs as any).Ok.forEach((item) => {
+          
           inventory_items.push({
             ...invenItem,
             user_inventory: { quantity: 1 },
             slot: inventory_items.length,
-            name: item.token_identifier,
-<<<<<<< HEAD
-            url: item.properties[0][1].TextContent,
-=======
-            url: item.properties[5][1].TextContent,
-            type: item.properties[2][1].TextContent,
->>>>>>> 15f0ca47ffb0e7773784a8efac13ba37b2350e67
+            name: item.token_identifier ? item.token_identifier : "Crown",
+            url: item.properties ? item.properties[0][1].TextContent : item.TextContent,
             isCoin: true
           })
         })

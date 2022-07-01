@@ -5,6 +5,7 @@ import DIP721_V2_IDL from '../util/dip_721_v2.did'
 //6hgw2-nyaaa-aaaai-abkqq-cai
 //5movr-diaaa-aaaak-aaftq-cai
 const nftCanisterId = "6hgw2-nyaaa-aaaai-abkqq-cai"
+const nftCanister1Id = "vlhm2-4iaaa-aaaam-qaatq-cai"
 
 export const getMyDIP721Tokens = () => {
   return new Promise(async (resolve, reject) => {
@@ -26,23 +27,24 @@ export const getMyDIP721Tokens = () => {
       canisterId: nftCanisterId,
       interfaceFactory: DIP721_V2_IDL
     })
-    const name = await nftActor?.name()
-    const symbol = await nftActor?.symbol()
+    const nftActor1 = await (window as any).ic?.plug?.createActor({
+      canisterId: nftCanister1Id,
+      interfaceFactory: DIP721_V2_IDL
+    })
+    const name = await nftActor1?.name()
+    const symbol = await nftActor1?.symbol()
 
-<<<<<<< HEAD
     console.log('name &&&&&& symbol ------------', name, symbol);
-console.log(nftActor);
+
 
     // My NFTS
-    const myNFTs = await nftActor?.ownerTokenMetadata(Principal.fromText(walletAddress))
+    let NFTs;
+    const cipher = await nftActor?.ownerTokenMetadata(Principal.fromText(walletAddress))
+    const crown = await nftActor1?.ownerTokenMetadata(Principal.fromText(walletAddress))
+    NFTs = cipher.Ok
+    NFTs.unshift(crown.Ok[0].properties[5][1])
+    console.log("NFT",NFTs)
 
-    console.log("NFTs",myNFTs)
-
-=======
-    // My NFTS
-    const myNFTs = await nftActor?.ownerTokenMetadata(Principal.fromText(walletAddress))
-
->>>>>>> 15f0ca47ffb0e7773784a8efac13ba37b2350e67
-    resolve(myNFTs)
+    resolve(cipher)
   })
 }

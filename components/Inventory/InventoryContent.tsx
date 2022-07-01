@@ -244,7 +244,6 @@ const InventoryContent = ({
     const startIndex = (state.currentPage - 1) * inventoryLimit
     const endIndex = state.currentPage * inventoryLimit
     for (let i = startIndex; i < endIndex; i++) res.push(i)
-
     return res
   }
 
@@ -341,9 +340,12 @@ const InventoryContent = ({
                     sx={{ position: 'relative' }}
                     className={`inventory`}
                   >
-                    {getCurrentSlots().map((slot) => (
+                    {getCurrentSlots().map((slot) => {
+                      
+                      
+                      return(
                       <ItemSlot slot={slot} value={getItemDataInSlot(slot) || null} key={slot} />
-                    ))}
+                    )})}
                   </Stack>
                   {/* pagination */}
                   <Stack direction="row" justifyContent="space-between" alignItems="center">
