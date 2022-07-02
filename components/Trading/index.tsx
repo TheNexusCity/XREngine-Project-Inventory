@@ -1,17 +1,18 @@
-
 import React, { useEffect, useState } from 'react'
-import TradingContent from './TradingContent'
-import styles from '../style/ui.module.scss'
-import { TradingAction, TradingService, useTradingState } from '../services/TradingService'
+
 import { useDispatch } from '@xrengine/client-core/src/store'
 import { AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
+
+import { TradingAction, TradingService, useTradingState } from '../services/TradingService'
+import styles from '../style/ui.module.scss'
+import TradingContent from './TradingContent'
 
 interface Props {
   changeActiveMenu?: any
   id: String
 }
 
-export const Trading = (props: Props): any => {
+export const Trading = (props: any): any => {
   const tradingState = useTradingState()
   const dispatch = useDispatch()
   let { data, user, type, isLoading, isLoadingtransfer, inventory, data1, data0 } = tradingState.value
@@ -75,6 +76,7 @@ export const Trading = (props: Props): any => {
           data={data}
           data1={data1}
           data0={data0}
+          coinData={props.coinData}
           inventory={inventory}
           user={user}
           type={type}

@@ -1,15 +1,16 @@
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import makeStyles from '@mui/styles/makeStyles'
-import { ArrowBackIos, FilterList } from '@mui/icons-material'
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
+import { usePrevious } from '@xrengine/client-core/src/hooks/usePrevious'
+
+import { ArrowBackIos, FilterList } from '@mui/icons-material'
 import {
-  Grid,
-  Divider,
   Box,
   Card,
   CircularProgress,
+  Divider,
   FormControl,
+  Grid,
   IconButton,
   InputLabel,
   Menu,
@@ -17,8 +18,16 @@ import {
   Select,
   Stack
 } from '@mui/material'
-import { useHistory } from 'react-router-dom'
-import { usePrevious } from '@xrengine/client-core/src/hooks/usePrevious'
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import Typography from '@mui/material/Typography'
+import makeStyles from '@mui/styles/makeStyles'
+
+import Slots from './TradingSlots'
 
 const useStyles = makeStyles({
   root1: {
@@ -101,6 +110,7 @@ type StateType = {
   receivedTrading: itemtype[]
   inventoryList: any[]
   userTradeId: string
+  currentPage: any
 }
 
 const ITEM_HEIGHT = 48
@@ -125,7 +135,8 @@ const TradingContent = ({
   data0,
   removeofferinventory,
   removereceiveinventory,
-  changeActiveMenu
+  changeActiveMenu,
+  coinData
 }: any) => {
   const history = useHistory()
   const classes = useStyles()
@@ -140,7 +151,8 @@ const TradingContent = ({
     offeredTrading: [],
     receivedTrading: [],
     userTradeId: '',
-    inventoryList: []
+    inventoryList: [],
+    currentPage: 2
   })
   const {
     url,
@@ -158,6 +170,15 @@ const TradingContent = ({
   const prevState = usePrevious({ selectedtype })
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl)
+  const [openModal, setOpen] = React.useState(false)
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setOpen(false)
+  }
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setState((prevState: any) => ({
       ...prevState,
@@ -171,12 +192,42 @@ const TradingContent = ({
       anchorEl: null
     }))
   }
+
   const handletypeselect = (id) => {
     setState((prevState) => ({
       ...prevState,
       selectedtype: id
     }))
     handleClose()
+  }
+
+  const [items, setItems] = useState([...coinData])
+  console.log(coinData)
+
+  const getItemDataInSlot = (slot) => items.find((item) => item.slot === slot)
+
+  const moveItemToSlot = (oldSlot, newSlot) => {
+    setItems((currentState) => {
+      let newInventory = [...currentState]
+      let targetIndex: any
+      newInventory.forEach((item, index) => {
+        if (item.slot === oldSlot) {
+          targetIndex = index
+        }
+      })
+      newInventory[targetIndex] = { ...newInventory[targetIndex], slot: newSlot }
+
+      return [...newInventory]
+    })
+  }
+
+  const onInventoryItemDragged = ({ detail: eventData }: any) => {
+    const oldSlot = parseInt(eventData.slot),
+      newSlot = parseInt(eventData.destination.slot)
+
+    if (eventData.destination.type === 'empty-slot') {
+      moveItemToSlot(oldSlot, newSlot)
+    }
   }
 
   useEffect(() => {
@@ -307,492 +358,94 @@ const TradingContent = ({
     }))
     addreceiveiteminventory(value)
   }
+  const inventoryLimit = 9
+  const getCurrentSlots = () => {
+    const res: any = []
+    const startIndex = (state.currentPage - 1) * inventoryLimit
+    const endIndex = state.currentPage * inventoryLimit
+    for (let i = startIndex; i < endIndex; i++) res.push(i)
+    console.log(res)
 
-  const acceptOfferSentId = (id, items) => {
-    acceptOfferSent(id, items, propid)
+    return res
   }
 
-  const acceptOfferReceivedId = (id, items) => {
-    acceptOfferReceived(id, items, propid)
-  }
+  useEffect(() => {
+    document.addEventListener('inventoryItemDragged', onInventoryItemDragged)
+    if (data.length !== 0) {
+      setState((prevState: any) => ({
+        ...prevState,
+        url: data[0].url,
+        metadata: data[0].metadata,
+        selectedid: data[0].user_inventory?.userInventoryId,
+        inventory: [...data]
+      }))
+    }
 
-  const rejectOfferSentId = (id, items) => {
-    rejectOfferSent(id, items, propid)
-  }
+    return () => {
+      document.removeEventListener('inventoryItemDragged', onInventoryItemDragged)
 
-  const rejectOfferReceivedId = (id, items) => {
-    rejectOfferReceived(id, items, propid)
-  }
+      setState({
+        url: '',
+        metadata: '',
+        selectedid: '',
+        userid: '',
+        anchorEl: null,
+        selectedtype: '',
+        fortrading: [],
+        offeredTrading: [],
+        receivedTrading: [],
+        userTradeId: '',
+        inventoryList: [],
+        currentPage: 1
+      }) // This worked for me
+    }
+  }, [])
 
   return (
     <Box sx={{ p: 2 }} className={`${classes.root} ${classes.contents}`}>
-      {/* <Stack sx={{ p: 2 }} className={`${classes.root} ${classes.contents}`} > */}
-      <Stack direction="row" justifyContent="space-between" className={classes.title}>
-        <IconButton
-          sx={{ svg: { color: 'white' } }}
-          className={classes.backButton}
-          onClick={() => changeActiveMenu(null)}
-        >
-          <ArrowBackIos />
-        </IconButton>
+      <Stack justifyContent="center" sx={{ width: '90%' }}>
         <Typography className={`${classes.title} ${classes.titlesize}`}>Trade</Typography>
-        <Typography></Typography>
-      </Stack>
-      <Divider />
-      <Grid container spacing={2} className={`${classes.p10} ${classes.contents}`}>
-        <Grid item md={2}>
-          <Stack
-            className={classes.card}
-            onDragOver={(e) => onDragOver(e)}
-            onDrop={(e) => {
-              onDrop(e, 'wip')
-            }}
-          >
-            <IconButton
-              aria-label="more"
-              id="long-button"
-              aria-controls="long-menu"
-              aria-expanded={open ? 'true' : undefined}
-              aria-haspopup="true"
-              onClick={handleClick}
-            >
-              <FilterList />
-            </IconButton>
-            <Menu
-              id="long-menu"
-              MenuListProps={{
-                'aria-labelledby': 'long-button'
-              }}
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              PaperProps={{
-                style: {
-                  maxHeight: ITEM_HEIGHT * 4.5,
-                  width: '20ch'
-                }
-              }}
-            >
-              <MenuItem selected={selectedtype === ''} onClick={(e) => handletypeselect('')}>
-                All
-              </MenuItem>
-              {type.map((option) => (
-                <MenuItem
-                  key={option.inventoryItemTypeId}
-                  selected={option.inventoryItemTypeId === selectedtype}
-                  onClick={(e) => handletypeselect(option.inventoryItemTypeId)}
-                >
-                  {option.inventoryItemType}
-                </MenuItem>
-              ))}
-            </Menu>
-            {(selectedtype === '' ? inventory : inventoryList).length !== 0 ? (
-              <Stack>
-                {(selectedtype === '' ? inventory : inventoryList).map((value: any, index: number) => (
-                  <Card
-                    key={index}
-                    onClick={() => {
-                      addfortrade(value, index)
-                      setState((prevState) => ({
-                        ...prevState,
-                        url: value.url,
-                        metadata: value.metadata,
-                        selectedid: value.inventoryItemTypeId
-                      }))
-                    }}
-                  >
-                    <Stack
-                      justifyContent="center"
-                      alignItems="center"
-                      className={`${selectedid === value.inventoryItemTypeId ? classes.selecteditem : ''}`}
-                    >
-                      <img src={value.url} height="100" width="100" alt="" />
-                      <Typography>{`Name: ${value.name}`}</Typography>
-                      {value.inventory_item_type && (
-                        <Typography>{`Type: ${value.inventory_item_type.inventoryItemType}`}</Typography>
-                      )}
-                    </Stack>
-                  </Card>
+        <Stack direction="row" justifyContent="center">
+          <Stack sx={{ marginTop: '15px', width: '100%' }}>
+            <Stack>
+              {/* inventory grid */}
+              <Stack
+                direction="row"
+                justifyContent="center"
+                flexWrap={'wrap'}
+                sx={{ position: 'relative' }}
+                className={`inventory`}
+              >
+                {getCurrentSlots().map((slot) => (
+                  <Slots slot={slot} value={getItemDataInSlot(slot) || null} key={slot} />
                 ))}
               </Stack>
-            ) : (
-              <Stack sx={{ color: 'black' }}>
-                <Typography>No Data Found</Typography>
-              </Stack>
-            )}
+            </Stack>
+            <Typography align="center">
+              <Button color="primary" size="large" type="submit" variant="contained" onClick={handleClickOpen}>
+                Make Trade
+              </Button>
+            </Typography>
           </Stack>
-        </Grid>
-        <Grid item md={6}>
-          <Card>
-            <Stack justifyContent="center" alignItems="center">
-              {fortrading.length > 0 ? <Typography className={classes.title}>Selected Items For Trade</Typography> : ''}
-              {fortrading.length !== 0 ? (
-                <Stack direction="row" spacing={1}>
-                  {fortrading.map((value: any, index: number) => (
-                    <Card
-                      key={index}
-                      onClick={() => {
-                        inventoryback(value, index)
-                      }}
-                    >
-                      <Stack
-                        justifyContent="center"
-                        alignItems="center"
-                        // className={`${selectedid === value.inventoryItemTypeId ? classes.selecteditem : ''}`}
-                      >
-                        <img src={value.url} height="100" width="100" alt="" />
-                        <Typography>{`Name: ${value.name}`}</Typography>
-                        {value.inventory_item_type && (
-                          <Typography>{`Type: ${value.inventory_item_type.inventoryItemType}`}</Typography>
-                        )}
-                      </Stack>
-                    </Card>
-                  ))}
-                </Stack>
-              ) : (
-                // <Stack sx={{ color: 'black' }}>
-                //   <Typography>No Data Found</Typography>
-                // </Stack>
-                ''
-              )}
-              {fortrading.length !== 0 && data0.length === 0 && (
-                <Stack justifyContent="center" alignItems="center" spacing={1} direction="row" className={classes.p10}>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">User</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={userid}
-                      label="user"
-                      onChange={(e: any) => {
-                        setState((prevState) => ({
-                          ...prevState,
-                          userid: e.target.value
-                        }))
-                      }}
-                    >
-                      {user.map((datas, index) => (
-                        <MenuItem style={{ display: 'block', marginRight: '18px' }} key={index} value={datas.id}>
-                          {datas.name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                  <Button
-                    variant="outlined"
-                    disabled={isLoadingtransfer}
-                    onClick={() => handleTransfer(userid, fortrading, propid)}
-                  >
-                    {isLoadingtransfer ? <CircularProgress size={30} /> : 'Initiate Trade'}
-                  </Button>
-                </Stack>
-              )}
-            </Stack>
-
-            <Stack justifyContent="center" alignItems="center" marginTop="5px">
-              {offeredTrading.length ? <Typography className={classes.title}>Trade Offer sent</Typography> : ''}
-              {offeredTrading.length !== 0 ? (
-                <Stack direction="row" spacing={1}>
-                  {offeredTrading.map((value: any, index: number) => (
-                    <Card
-                      key={index}
-                      onClick={() => {
-                        offeredback(value, index)
-                      }}
-                    >
-                      <Stack
-                        justifyContent="center"
-                        alignItems="center"
-                        // className={`${selectedid === value.inventoryItemTypeId ? classes.selecteditem : ''}`}
-                      >
-                        <img src={value.url} height="100" width="100" alt="" />
-                        <Typography>{`Name: ${value.name}`}</Typography>
-                        <Typography>{`Type: ${value.inventory_item_type.inventoryItemType}`}</Typography>
-                      </Stack>
-                    </Card>
-                  ))}
-                </Stack>
-              ) : (
-                // <Stack sx={{ color: 'black' }}>
-                //   <Typography>No Data Found</Typography>
-                // </Stack>
-                ''
-              )}
-              {fortrading.length !== 0 && data0.length !== 0 && (
-                <Stack justifyContent="center" alignItems="center" spacing={1} direction="row" className={classes.p10}>
-                  {/* <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">User</InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={userid}
-                        label="user"
-                        onChange={(e: any) => {
-                          setState((prevState) => ({
-                            ...prevState,
-                            userid: e.target.value
-                          }))
-                        }}
-                      >
-                        {user.map((datas, index) => (
-                          <MenuItem style={{display:"block"}} key={index} value={datas.id}>
-                            {datas.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                    <Button
-                      variant="outlined"
-                      disabled={isLoadingtransfer}
-                      onClick={() => handleTransfer(userid, offeredTrading)}
-                    > */}
-                  <Button
-                    variant="outlined"
-                    disabled={isLoadingtransfer}
-                    onClick={() => acceptOfferSentId(data0[0].userTradeId, fortrading)}
-                  >
-                    {isLoadingtransfer ? <CircularProgress size={30} /> : 'Accept Offer Sent'}
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    disabled={isLoadingtransfer}
-                    onClick={() => rejectOfferSentId(data0[0].userTradeId, fortrading)}
-                  >
-                    {isLoadingtransfer ? <CircularProgress size={30} /> : 'Reject Offer Sent'}
-                  </Button>
-                </Stack>
-              )}
-            </Stack>
-
-            <Stack justifyContent="center" alignItems="center" marginTop="5px">
-              {receivedTrading.length ? <Typography className={classes.title}>Trade Offer received</Typography> : ''}
-              {receivedTrading.length !== 0 ? (
-                <Stack direction="row" spacing={1}>
-                  {receivedTrading.map((value: any, index: number) => (
-                    <Card
-                      key={index}
-                      onClick={() => {
-                        receivedback(value, index)
-                      }}
-                    >
-                      <Stack
-                        justifyContent="center"
-                        alignItems="center"
-                        // className={`${selectedid === value.inventoryItemTypeId ? classes.selecteditem : ''}`}
-                      >
-                        <img src={value.url} height="100" width="100" alt="" />
-                        <Typography>{`Name: ${value.name}`}</Typography>
-                        <Typography>{`Type: ${value.inventory_item_type.inventoryItemType}`}</Typography>
-                      </Stack>
-                    </Card>
-                  ))}
-                </Stack>
-              ) : (
-                // <Stack sx={{ color: 'black' }}>
-                //   <Typography>No Data Found</Typography>
-                // </Stack>
-                ''
-              )}
-              {fortrading.length !== 0 && data1.length !== 0 && (
-                <Stack justifyContent="center" alignItems="center" spacing={1} direction="row" className={classes.p10}>
-                  {/* <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">User</InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={userid}
-                        label="user"
-                        onChange={(e: any) => {
-                          setState((prevState) => ({
-                            ...prevState,
-                            userid: e.target.value
-                          }))
-                        }}
-                      >
-                        {user.map((datas, index) => (
-                          <MenuItem style={{display:"block"}} key={index} value={datas.id}>
-                            {datas.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                    <Button
-                      variant="outlined"
-                      disabled={isLoadingtransfer}
-                      onClick={() => handleTransfer(userid, offeredTrading)}
-                    > */}
-                  <Button
-                    variant="outlined"
-                    disabled={isLoadingtransfer}
-                    onClick={() => acceptOfferReceivedId(data1[0].userTradeId, fortrading)}
-                  >
-                    {isLoadingtransfer ? <CircularProgress size={30} /> : 'Accept Offer Received'}
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    disabled={isLoadingtransfer}
-                    onClick={() => rejectOfferReceivedId(data1[0].userTradeId, fortrading)}
-                  >
-                    {isLoadingtransfer ? <CircularProgress size={30} /> : 'Reject Offer Received'}
-                  </Button>
-                </Stack>
-              )}
-            </Stack>
-          </Card>
-        </Grid>
-        <Grid item md={4}>
-          <Stack>
-            <Card>
-              <Stack justifyContent="center" alignItems="center">
-                <Typography className={classes.title}>Trade Offer Sent</Typography>
-                {data0.length !== 0 ? (
-                  <Stack direction="row" spacing={1}>
-                    {data0[0].fromUserInventoryIds.map((value: any, index: number) => (
-                      <Card
-                        key={index}
-                        // onClick={() => {
-                        //   offerfortrade(value, index);
-                        //   setState((prevState) => ({
-                        //     ...prevState,
-                        //     url: value.url,
-                        //     metadata: value.metadata,
-                        //     selectedid: value.inventoryItemTypeId,
-                        //     userTradeId: value.userTradeId
-                        //   }))
-                        // }}
-                      >
-                        <Stack
-                          justifyContent="center"
-                          alignItems="center"
-                          className={`${selectedid === value.inventoryItemTypeId ? classes.selecteditem : ''}`}
-                        >
-                          <img src={value.url} height="100" width="100" alt="" />
-                          <Typography>{`Name: ${value.name} --->`} </Typography>
-                          <Typography>{`Type: ${value.inventory_item_type.inventoryItemType}`}</Typography>
-                          <Typography>{`Status: ${data0[0].fromUserStatus}`}</Typography>
-                        </Stack>
-                      </Card>
-                    ))}
-                  </Stack>
-                ) : (
-                  <Stack sx={{ color: 'black' }}>
-                    <Typography>No Data Found</Typography>
-                  </Stack>
-                )}
-                <Divider />
-                {data0.length !== 0 ? (
-                  <Stack direction="row" spacing={1}>
-                    {data0[0].toUserInventoryIds.map((value: any, index: number) => (
-                      <Card
-                        key={index}
-                        // onClick={() => {
-                        //   setState((prevState) => ({
-                        //     ...prevState,
-                        //     url: value.url,
-                        //     metadata: value.metadata,
-                        //     selectedid: value.inventoryItemTypeId,
-                        //     userTradeId: value.userTradeId
-
-                        //   }))
-                        // }}
-                      >
-                        <Stack
-                          justifyContent="center"
-                          alignItems="center"
-                          className={`${selectedid === value.inventoryItemTypeId ? classes.selecteditem : ''}`}
-                        >
-                          <img src={value.url} height="100" width="100" alt="" />
-                          <Typography>{`Name: ${value.name} <---`}</Typography>
-                          <Typography>{`Type: ${value.inventory_item_type.inventoryItemType}`}</Typography>
-                          <Typography>{`Status: ${data0[0].toUserStatus}`}</Typography>
-                        </Stack>
-                      </Card>
-                    ))}
-                  </Stack>
-                ) : (
-                  <Stack sx={{ color: 'black' }}>
-                    <Typography>No Data Found</Typography>
-                  </Stack>
-                )}
-              </Stack>
-            </Card>
-            <Card>
-              <Stack justifyContent="center" alignItems="center">
-                <Typography className={classes.title}>Trade Offer Received</Typography>
-                {data1.length !== 0 ? (
-                  <Stack direction="row" spacing={1}>
-                    {data1[0].toUserInventoryIds.map((value: any, index: number) => (
-                      <Card
-                        key={index}
-                        // onClick={() => {
-                        //   receivefortrade(value, index)
-                        //   setState((prevState) => ({
-                        //     ...prevState,
-                        //     url: value.url,
-                        //     metadata: value.metadata,
-                        //     selectedid: value.inventoryItemTypeId
-                        //   }))
-                        // }}
-                      >
-                        <Stack
-                          justifyContent="center"
-                          alignItems="center"
-                          className={`${selectedid === value.inventoryItemTypeId ? classes.selecteditem : ''}`}
-                        >
-                          <img src={value.url} height="100" width="100" alt="" />
-                          <Typography>{`Name: ${value.name} --->`}</Typography>
-                          <Typography>{`Type: ${value.inventory_item_type.inventoryItemType}`}</Typography>
-                          <Typography>{`Status: ${data1[0].toUserStatus}`}</Typography>
-                        </Stack>
-                      </Card>
-                    ))}
-                  </Stack>
-                ) : (
-                  <Stack sx={{ color: 'black' }}>
-                    <Typography>No Data Found</Typography>
-                  </Stack>
-                )}
-                <Divider />
-                {data1.length !== 0 ? (
-                  <Stack direction="row" spacing={1}>
-                    {data1[0].fromUserInventoryIds.map((value: any, index: number) => (
-                      <Card
-                        key={index}
-                        // onClick={() => {
-
-                        //   setState((prevState) => ({
-                        //     ...prevState,
-                        //     url: value.url,
-                        //     metadata: value.metadata,
-                        //     selectedid: value.inventoryItemTypeId
-                        //   }))
-                        // }}
-                      >
-                        <Stack
-                          justifyContent="center"
-                          alignItems="center"
-                          className={`${selectedid === value.inventoryItemTypeId ? classes.selecteditem : ''}`}
-                        >
-                          <img src={value.url} height="100" width="100" alt="" />
-                          <Typography>{`Name: ${value.name} <---`}</Typography>
-                          <Typography>{`Type: ${value.inventory_item_type.inventoryItemType}`}</Typography>
-                          <Typography>{`Status: ${data1[0].fromUserStatus}`}</Typography>
-                        </Stack>
-                      </Card>
-                    ))}
-                  </Stack>
-                ) : (
-                  <Stack sx={{ color: 'black' }}>
-                    <Typography>No Data Found</Typography>
-                  </Stack>
-                )}
-              </Stack>
-            </Card>
-          </Stack>
-        </Grid>
-      </Grid>
-
-      {/* </Stack> */}
+        </Stack>
+      </Stack>
+      <Dialog
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{'Please Confirm Trade'}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">Confirm Trade item</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseModal}>Cancel</Button>
+          <Button onClick={handleCloseModal} autoFocus>
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   )
 }

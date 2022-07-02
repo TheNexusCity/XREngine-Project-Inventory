@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import { Stack } from '@mui/material'
 import Typography from '@mui/material/Typography'
@@ -43,8 +43,7 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    pointerEvents: 'none',
-    zIndex: '100'
+    pointerEvents: 'none'
   },
   inventoryItemPreview: {
     width: '90%',

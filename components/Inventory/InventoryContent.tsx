@@ -26,7 +26,6 @@ import makeStyles from '@mui/styles/makeStyles'
 import DragAndDropAPI from './DragAndDropAPI'
 import ItemSlot from './Slot'
 
-
 const useStyles = makeStyles({
   root1: {
     width: '50%'
@@ -146,12 +145,6 @@ const InventoryContent = ({
     currentPage: 1
   })
 
-  // const [modal, setModal] = useState(false);
-
-  // const toggleModal = () => {
-  //   setModal(!modal)
-  // }
-
   const { url, metadata, userid, selectedid, anchorEl, selectedtype, inventory } = state
   const prevState = usePrevious({ selectedtype })
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -161,6 +154,7 @@ const InventoryContent = ({
 
   // Regarding dragging inventory action.
   const [items, setItems] = useState([...coinData])
+
   const [draggingSlotId, setDraggingSlot] = useState(null)
   const getItemDataInSlot = (slot) => items.find((item) => item.slot === slot)
 
@@ -319,8 +313,6 @@ const InventoryContent = ({
     }
   }, [selectedtype])
 
-  console.log(items)
-
   return (
     <Box sx={{ p: 2 }} className={`${classes.root} ${classes.contents} invenContentPanel`}>
       {/* <Stack sx={{ p: 2 }} className={`${classes.root} ${classes.contents}`} > */}
@@ -347,7 +339,7 @@ const InventoryContent = ({
                     justifyContent="center"
                     flexWrap={'wrap'}
                     sx={{ position: 'relative' }}
-                    className={`inventory`}
+                    // className={`inventory`}
                   >
                     {getCurrentSlots().map((slot) => (
                       <ItemSlot slot={slot} value={getItemDataInSlot(slot) || null} key={slot} />
@@ -553,6 +545,6 @@ const InventoryContent = ({
       {/* </Stack> */}
     </Box>
   )
-}   
+}
 
 export default InventoryContent
