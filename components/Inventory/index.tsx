@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 
+import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 
@@ -33,29 +34,59 @@ export const Inventory = (props: Props): any => {
 
   console.log(authState.authUser.identityProvider.userId.value)
   return (
-    <Grid container spacing={3} alignItems="stretch" className={styles.menu_grid}>
-      <Grid item xs={12} sm={4}>
-        <div className={styles.menuPanel}>
-          {isLoading ? (
-            'Loading...'
-          ) : (
-            <InventoryContent
-              data={data}
-              coinData={coinData}
-              user={user}
-              id={props.id}
-              type={type}
-              changeActiveMenu={props.changeActiveMenu}
-              InventoryService={InventoryService}
-              isLoadingtransfer={isLoadingtransfer}
-            />
-          )}
-        </div>
+    <Box sx={{ width: '100%' }}>
+      <Grid
+        container
+        rowSpacing={1}
+        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+        alignItems="stretch"
+        className={styles.menu_grid}
+      >
+        <Grid item xs={6}>
+          <div className={styles.menuPanel}>
+            {isLoading ? (
+              'Loading...'
+            ) : (
+              <InventoryContent
+                data={data}
+                coinData={coinData}
+                user={user}
+                id={props.id}
+                type={type}
+                changeActiveMenu={props.changeActiveMenu}
+                InventoryService={InventoryService}
+                isLoadingtransfer={isLoadingtransfer}
+              />
+            )}
+          </div>
+        </Grid>
+        <Grid item xs={6} className={styles.trade_grid}>
+          <Trading id="1" coinData={coinData} />
+        </Grid>
+
+        <Grid item xs={6}>
+          <div className={styles.menuPanel}>
+            {isLoading ? (
+              'Loading...'
+            ) : (
+              <InventoryContent
+                data={data}
+                coinData={coinData}
+                user={user}
+                id={props.id}
+                type={type}
+                changeActiveMenu={props.changeActiveMenu}
+                InventoryService={InventoryService}
+                isLoadingtransfer={isLoadingtransfer}
+              />
+            )}
+          </div>
+        </Grid>
+        <Grid item xs={6} className={styles.trade_grid}>
+          <Trading id="1" coinData={coinData} />
+        </Grid>
       </Grid>
-      <Grid item xs={12} sm={4} className={styles.trade_grid}>
-        <Trading id="1" coinData={coinData} />
-      </Grid>
-    </Grid>
+    </Box>
   )
 }
 
