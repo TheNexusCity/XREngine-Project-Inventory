@@ -424,10 +424,18 @@ const TradingContent = ({
               </Stack>
             </Stack>
             <Typography align="center" display="flex">
-              <Button style={{maxWidth: '100px', maxHeight: '30px', minWidth: '100px', minHeight: '30px'}} variant="contained" endIcon={<CheckIcon onClick={handleClickOpen} />}>
+              <Button
+                style={{ maxWidth: '100px', maxHeight: '30px', minWidth: '100px', minHeight: '30px' }}
+                variant="contained"
+                endIcon={<CheckIcon onClick={handleClickOpen} />}
+              >
                 Accept
               </Button>
-              <Button style={{maxWidth: '100px', maxHeight: '30px', minWidth: '100px', minHeight: '30px'}} variant="outlined" startIcon={<BlockIcon />}>
+              <Button
+                style={{ maxWidth: '100px', maxHeight: '30px', minWidth: '100px', minHeight: '30px' }}
+                variant="outlined"
+                startIcon={<BlockIcon />}
+              >
                 Cancel
               </Button>
             </Typography>
