@@ -60,9 +60,8 @@ export const Inventory = (props: Props): any => {
             )}
           </div>
         </Grid>
-        <Grid item xs={6} className={styles.trade_grid}>
-          <Trading id="1" coinData={coinData} />
-        </Grid>
+
+      
 
         <Grid item xs={6}>
           <div className={styles.menuPanel}>
@@ -82,6 +81,11 @@ export const Inventory = (props: Props): any => {
             )}
           </div>
         </Grid>
+
+        <Grid item xs={6} className={styles.trade_grid}>
+          <Trading id="1" coinData={coinData} />
+        </Grid>
+        
         <Grid item xs={6} className={styles.trade_grid}>
           <Trading id="1" coinData={coinData} />
         </Grid>
