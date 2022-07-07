@@ -314,20 +314,14 @@ const InventoryContent = ({
   }, [selectedtype])
 
   return (
-    <Box sx={{ p: 2 }} className={`${classes.root} ${classes.contents} invenContentPanel`}>
+    <Box  className={`${classes.root} ${classes.contents} invenContentPanel`}>
       {/* <Stack sx={{ p: 2 }} className={`${classes.root} ${classes.contents}`} > */}
       <Stack direction="row" justifyContent="space-between" className={classes.title}>
-        <IconButton
-          sx={{ svg: { color: 'white' } }}
-          className={classes.backButton}
-          onClick={() => changeActiveMenu(null)}
-        >
-          <ArrowBackIos />
-        </IconButton>
-        <Stack justifyContent="center" sx={{ width: '90%' }}>
+    
+        <Stack justifyContent="center" >
           <Typography className={`${classes.title} ${classes.titlesize}`}>Inventory</Typography>
           <Stack direction="row" justifyContent="center" className={`${classes.inventoryWrapper}`}>
-            <Stack sx={{ marginTop: '15px', width: '100%' }}>
+            <Stack >
               {items.length !== 0 ? (
                 <Stack>
                   {/* drag & drop API integration */}
@@ -378,15 +372,15 @@ const InventoryContent = ({
       </Stack>
 
       <Stack direction="row" justifyContent="space-between" className={classes.title}>
-        <IconButton
+        {/* <IconButton
           sx={{ svg: { color: 'white' } }}
           className={classes.backButton}
           onClick={() => changeActiveMenu(null)}
         >
           <ArrowBackIos />
-        </IconButton>
+        </IconButton> */}
       </Stack>
-      <Divider />
+      {/* <Divider /> */}
       {data.length !== 0 ? (
         <Grid container spacing={2} className={`${classes.p10} ${classes.contents}`}>
           <Grid item md={4} mx={2}>
@@ -537,11 +531,13 @@ const InventoryContent = ({
             )}
           </Grid>
         </Grid>
-      ) : (
+      ) 
+      : (
         <Stack justifyContent="center" alignItems="center">
-          <Typography className={classes.title}>NO ITEMS FOUND</Typography>
+          {/* <Typography className={classes.title}>NO ITEMS FOUND</Typography> */}
         </Stack>
-      )}
+      )
+      }
       {/* </Stack> */}
     </Box>
   )

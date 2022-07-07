@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
-
+import React from 'react'
 import { Stack } from '@mui/material'
-import Typography from '@mui/material/Typography'
 import makeStyles from '@mui/styles/makeStyles'
-
 import styles from '../style/ui.module.scss'
+import Typography from '@mui/material/Typography'
+
 
 const useStyles = makeStyles({
   inventoryItem: {
@@ -43,8 +42,7 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    pointerEvents: 'none',
-    zIndex: '100'
+    pointerEvents: 'none'
   },
   inventoryItemPreview: {
     width: '90%',
@@ -59,6 +57,7 @@ const useStyles = makeStyles({
 const MainComponent = (props: any) => {
   const classes = useStyles()
 
+
   const getNftType = (url: string) => {
     const elements = url.split('.')
     const fileType = elements[elements.length - 1]
@@ -70,7 +69,7 @@ const MainComponent = (props: any) => {
     return 'image'
   }
 
-  const ItemSlot = ({ value, slot }: any) => {
+  const ItemSlot = ({value, slot }: any) => {
     return (
       <Stack justifyContent="center" alignItems="center" className={`${classes.inventoryItem}`}>
         <div
@@ -79,7 +78,7 @@ const MainComponent = (props: any) => {
           data-slot={props.slot}
           data-type={`item`}
         >
-          <div className={`${classes.inventoryInsideContent}`}>
+        <div className={`${classes.inventoryInsideContent}`}>
             {getNftType(value.url) === 'video' ? (
               <video className={`${classes.inventoryItemPreview}`} src={value.url} muted autoPlay loop />
             ) : getNftType(value.url) === 'image' ? (
@@ -92,7 +91,7 @@ const MainComponent = (props: any) => {
 
             {/* <video className={`${classes.inventoryItemPreview}`} src={`https://gateway.pinata.cloud/ipfs/QmaqaX1fjJeQdGLxyox5XPFHfk5MG2syGNtS2jn1V8oLz2`} muted autoPlay loop /> */}
 
-            <div className={value.name.length > 0 ? styles.cssMarquee : styles.cssMarquee}>
+            <div className={ value.name.length > 0 ? styles.cssMarquee : styles.cssMarquee }>
               <Typography className={`${classes.inventoryItemName}`}>{`Crowns #${value.name}`}</Typography>
             </div>
           </div>

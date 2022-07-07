@@ -402,11 +402,11 @@ const TradingContent = ({
   }, [])
 
   return (
-    <Box sx={{ p: 2 }} className={`${classes.root} ${classes.contents}`}>
-      <Stack justifyContent="center" sx={{ width: '90%' }}>
+    <Box  className={`${classes.root} ${classes.contents}`}>
+      <Stack justifyContent="center" >
         <Typography className={`${classes.title} ${classes.titlesize}`}>Trade</Typography>
         <Stack direction="row" justifyContent="center">
-          <Stack sx={{ marginTop: '15px', width: '100%' }}>
+          <Stack >
             <Stack>
               {/* inventory grid */}
               <Stack

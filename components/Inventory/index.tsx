@@ -34,7 +34,7 @@ export const Inventory = (props: Props): any => {
 
   console.log(authState.authUser.identityProvider.userId.value)
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%' }} className={styles.cards_trade_grid}>
       <Grid
         container
         rowSpacing={1}

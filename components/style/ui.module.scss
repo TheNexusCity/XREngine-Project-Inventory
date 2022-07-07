@@ -371,12 +371,14 @@
   }
 }
 
-.menu_grid {
+.cards_trade_grid{
   position: absolute;
   bottom: 4rem;
-  left: 2%;
-  height: 80vh;
-  width: 95%;
+  left: 25%;
+}
+
+.menu_grid {
+  width: 50%;
 }
 
 .trade_grid {
