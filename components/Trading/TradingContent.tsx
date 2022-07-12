@@ -204,7 +204,6 @@ const TradingContent = ({
   }
 
   const [items, setItems] = useState([...coinData])
-  console.log(coinData)
 
   const getItemDataInSlot = (slot) => items.find((item) => item.slot === slot)
 
