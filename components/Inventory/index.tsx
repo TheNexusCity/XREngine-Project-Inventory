@@ -10,6 +10,7 @@ import { InventoryService, useInventoryState } from '../services/InventoryServic
 import styles from '../style/ui.module.scss'
 import Trading from '../Trading'
 import InventoryContent from './InventoryContent'
+import OtherInventory from "./others/InventoryContent"
 
 interface Props {
   changeActiveMenu?: any
@@ -68,7 +69,7 @@ export const Inventory = (props: Props): any => {
             {isLoading ? (
               'Loading...'
             ) : (
-              <InventoryContent
+              <OtherInventory
                 data={data}
                 coinData={coinData}
                 user={user}
