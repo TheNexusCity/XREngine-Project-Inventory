@@ -10,7 +10,7 @@ import { InventoryService, useInventoryState } from '../services/InventoryServic
 import styles from '../style/ui.module.scss'
 import Trading from '../Trading'
 import InventoryContent from './InventoryContent'
-import OtherInventory from "./others/InventoryContent"
+import OtherInventory from './others/InventoryContent'
 
 interface Props {
   changeActiveMenu?: any
@@ -62,8 +62,6 @@ export const Inventory = (props: Props): any => {
           </div>
         </Grid>
 
-      
-
         <Grid item xs={6}>
           <div className={styles.menuPanel}>
             {isLoading ? (
@@ -86,7 +84,7 @@ export const Inventory = (props: Props): any => {
         <Grid item xs={6} className={styles.trade_grid}>
           <Trading id="1" coinData={coinData} />
         </Grid>
-        
+
         <Grid item xs={6} className={styles.trade_grid}>
           <Trading id="1" coinData={coinData} />
         </Grid>

@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     boxShadow: '0px 11.23762321472168px 11.23762321472168px 0px #00000040',
     backdropFilter: 'blur(50px)',
     width: '80px',
-    height: '80px',
+    height: '80px'
   },
   inventoryContent: {
     '&.being-dragged': {
