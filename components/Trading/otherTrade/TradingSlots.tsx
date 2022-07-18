@@ -4,7 +4,7 @@ import { Stack } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import makeStyles from '@mui/styles/makeStyles'
 
-import styles from '../style/ui.module.scss'
+import styles from '../../style/ui.module.scss'
 
 const useStyles = makeStyles({
   inventoryItem: {

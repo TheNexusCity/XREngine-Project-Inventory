@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom'
 import { usePrevious } from '@xrengine/client-core/src/hooks/usePrevious'
 
 import { ArrowBackIos, FilterList } from '@mui/icons-material'
-import BlockIcon from '@mui/icons-material/Block'
 import CheckIcon from '@mui/icons-material/Check'
 import {
   Box,
@@ -405,7 +404,7 @@ const TradingContent = ({
   return (
     <Box className={`${classes.root} ${classes.contents}`}>
       <Stack justifyContent="center">
-        <Typography className={`${classes.title} ${classes.titlesize}`}>Trade</Typography>
+        <Typography className={`${classes.title} ${classes.titlesize}`}>Remote Trade</Typography>
         <Stack direction="row" justifyContent="center">
           <Stack>
             <Stack>
@@ -429,13 +428,6 @@ const TradingContent = ({
                 endIcon={<CheckIcon onClick={handleClickOpen} />}
               >
                 Accept
-              </Button>
-              <Button
-                style={{ maxWidth: '100px', maxHeight: '30px', minWidth: '100px', minHeight: '30px' }}
-                variant="outlined"
-                startIcon={<BlockIcon />}
-              >
-                Cancel
               </Button>
             </Typography>
           </Stack>

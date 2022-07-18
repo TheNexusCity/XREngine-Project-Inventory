@@ -117,7 +117,7 @@ type StateType = {
 
 const ITEM_HEIGHT = 48
 
-const TradingContent = ({
+const OtherTradingContent = ({
   data,
   user,
   propid,
@@ -404,7 +404,7 @@ const TradingContent = ({
   return (
     <Box className={`${classes.root} ${classes.contents}`}>
       <Stack justifyContent="center">
-        <Typography className={`${classes.title} ${classes.titlesize}`}>Trade</Typography>
+        <Typography className={`${classes.title} ${classes.titlesize}`}>Local Trade</Typography>
         <Stack direction="row" justifyContent="center">
           <Stack>
             <Stack>
@@ -461,4 +461,4 @@ const TradingContent = ({
   )
 }
 
-export default TradingContent
+export default OtherTradingContent
