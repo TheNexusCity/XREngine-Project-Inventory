@@ -13,8 +13,8 @@ const useStyles = makeStyles({
     borderRadius: '6.74257px',
     border: '2px solid rgba(137, 137, 242, 0.53)',
     boxShadow: '0px 11.23762321472168px 11.23762321472168px 0px #00000040',
-    width: '80px',
-    height: '80px',
+    width: '120px',
+    height: '120px',
     '&:hover': {
       cursor: 'pointer'
     }
@@ -26,8 +26,8 @@ const useStyles = makeStyles({
     background: 'linear-gradient(180deg, rgba(137, 137, 242, 0.5) 0%, rgba(92, 92, 92, 0.5) 100%)',
     boxShadow: '0px 11.23762321472168px 11.23762321472168px 0px #00000040',
     backdropFilter: 'blur(50px)',
-    width: '80px',
-    height: '80px',
+    width: '120px',
+    height: '120px',
   },
   inventoryContent: {
     '&.being-dragged': {

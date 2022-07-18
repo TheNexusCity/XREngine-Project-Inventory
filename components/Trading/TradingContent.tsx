@@ -423,8 +423,8 @@ const TradingContent = ({
             </Stack>
             <Typography align="center" display="flex">
               <Button
-                style={{ maxWidth: '100px', maxHeight: '30px', minWidth: '100px', minHeight: '30px' }}
-                variant="contained"
+                style={{ maxWidth: '100px', maxHeight: '40px', minWidth: '100px', minHeight: '40px' }}
+                variant="contained" color="success"
                 endIcon={<CheckIcon onClick={handleClickOpen} />}
               >
                 Accept
