@@ -422,17 +422,18 @@ const OtherTradingContent = ({
               </Stack>
             </Stack>
             <Typography align="center" display="flex">
-             
               <Button
                 style={{ maxWidth: '100px', maxHeight: '40px', minWidth: '100px', minHeight: '40px' }}
-                variant="outlined" color="error"
+                variant="outlined"
+                color="error"
                 startIcon={<BlockIcon />}
               >
                 Cancel
               </Button>
               <Button
                 style={{ maxWidth: '100px', maxHeight: '40px', minWidth: '100px', minHeight: '40px' }}
-                variant="contained" color="success"
+                variant="contained"
+                color="success"
                 endIcon={<CheckIcon onClick={handleClickOpen} />}
               >
                 Accept
