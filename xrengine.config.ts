@@ -6,7 +6,8 @@ const config: ProjectConfigInterface = {
   routes: {
     '/inventory': { component: () => import('./components/Inventory') },
     '/trading': { component: () => import('./components/Trading') },
-    '/wallet': { component: () => import('./components/Wallet') }
+    '/wallet': { component: () => import('./components/Wallet') },
+    '/tradetest': { component : () => import ('./components/Tradetest') }
   },
   webappInjection: () => import('./components/webappInjection'),
   services: './services/services.ts',

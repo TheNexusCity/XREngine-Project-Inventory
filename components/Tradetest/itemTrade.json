@@ -1,0 +1,19 @@
+[
+    {
+        "id": "001", 
+        "name": "nft-1", 
+        "image": "https://res.cloudinary.com/ddu9kyo4m/image/upload/v1658305113/nfts/nft-3_jmnplg.png"
+    },
+  
+    {
+        "id": "002", 
+        "name": "nft-2", 
+        "image": "https://res.cloudinary.com/ddu9kyo4m/image/upload/v1658305112/nfts/nft-2_q6h8ml.png"
+    },
+  
+    {
+        "id": "003",
+        "name": "nft-3", 
+        "image": "https://res.cloudinary.com/ddu9kyo4m/image/upload/v1658305111/nfts/nft-1_x5czhi.png"
+    }
+]

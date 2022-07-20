@@ -10,14 +10,14 @@ import { InventoryService, useInventoryState } from '../services/InventoryServic
 import styles from '../style/ui.module.scss'
 import Trading from '../Trading'
 import OtherTradingContent from '../Trading/otherTrade'
-import InventoryContent from './InventoryContent'
+import TradeTestContent from './TradeTestContent'
 
 interface Props {
   changeActiveMenu?: any
   id: String
 }
 
-export const Inventory = (props: Props): any => {
+export const Tradetest = (props: Props): any => {
   const inventoryState = useInventoryState()
 
   let { data, user, type, isLoading, isLoadingtransfer, coinData } = inventoryState.value
@@ -60,7 +60,7 @@ export const Inventory = (props: Props): any => {
               {isLoading ? (
                 'Loading...'
               ) : (
-                <InventoryContent
+                <TradeTestContent
                   data={data}
                   coinData={coinData}
                   user={user}
@@ -79,4 +79,4 @@ export const Inventory = (props: Props): any => {
   )
 }
 
-export default Inventory
+export default Tradetest

@@ -364,8 +364,6 @@ const TradingContent = ({
     const startIndex = (state.currentPage - 1) * inventoryLimit
     const endIndex = state.currentPage * inventoryLimit
     for (let i = startIndex; i < endIndex; i++) res.push(i)
-    console.log(res)
-
     return res
   }
 
@@ -424,7 +422,8 @@ const TradingContent = ({
             <Typography align="center" display="flex">
               <Button
                 style={{ maxWidth: '100px', maxHeight: '40px', minWidth: '100px', minHeight: '40px' }}
-                variant="contained" color="success"
+                variant="contained"
+                color="success"
                 endIcon={<CheckIcon onClick={handleClickOpen} />}
               >
                 Accept
