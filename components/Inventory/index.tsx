@@ -21,6 +21,7 @@ export const Inventory = (props: Props): any => {
   const inventoryState = useInventoryState()
 
   let { data, user, type, isLoading, isLoadingtransfer, coinData } = inventoryState.value
+  
   const authState = useAuthState()
 
   useEffect(() => {

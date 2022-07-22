@@ -205,26 +205,26 @@ const OtherTradingContent = ({
 
   const [items, setItems] = useState([...coinData])
 
-  const getItemDataInSlot = (slot) => items.find((item) => item.slot === slot)
+  const getItemDataInSlot = (slotData) => items.find((item) => item.slotData === slotData)
 
   const moveItemToSlot = (oldSlot, newSlot) => {
     setItems((currentState) => {
       let newInventory = [...currentState]
       let targetIndex: any
       newInventory.forEach((item, index) => {
-        if (item.slot === oldSlot) {
+        if (item.slotData === oldSlot) {
           targetIndex = index
         }
       })
-      newInventory[targetIndex] = { ...newInventory[targetIndex], slot: newSlot }
+      newInventory[targetIndex] = { ...newInventory[targetIndex], slotData: newSlot }
 
       return [...newInventory]
     })
   }
 
   const onInventoryItemDragged = ({ detail: eventData }: any) => {
-    const oldSlot = parseInt(eventData.slot),
-      newSlot = parseInt(eventData.destination.slot)
+    const oldSlot = parseInt(eventData.slotData),
+      newSlot = parseInt(eventData.destination.slotData)
 
     if (eventData.destination.type === 'empty-slot') {
       moveItemToSlot(oldSlot, newSlot)
@@ -416,8 +416,8 @@ const OtherTradingContent = ({
                 sx={{ position: 'relative' }}
                 className={`inventory`}
               >
-                {getCurrentSlots().map((slot) => (
-                  <Slots slot={slot} value={getItemDataInSlot(slot) || null} key={slot} />
+                {getCurrentSlots().map((slotData) => (
+                  <Slots slotData={slotData} value={getItemDataInSlot(slotData) || null} key={slotData} />
                 ))}
               </Stack>
             </Stack>

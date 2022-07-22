@@ -25,7 +25,6 @@ import makeStyles from '@mui/styles/makeStyles'
 
 import DragAndDropAPI from '../Inventory/DragAndDropAPI'
 import TradeSlot from './TradeSlot'
-import itemTrade from './itemTrade.json'
 
 const useStyles = makeStyles({
   root1: {
@@ -154,10 +153,10 @@ const TradeTestContent = ({
   const totalPage = Math.ceil(coinData?.length / inventoryLimit)
 
   // Regarding dragging inventory action.
-  const [items, setItems] = useState([...itemTrade])
+  const [items, setItems] = useState([...coinData])
 
   const [draggingSlotId, setDraggingSlot] = useState(null)
-  const getItemDataInSlot = (slot) => items.find((item) => item.slot === slot)
+  const getItemDataInSlot = (slotData) => items.find((item) => item.slotData === slotData)
 
   const swapItemSlots = (oldSlot, newSlot) => {
     setItems((currentState) => {
@@ -167,17 +166,17 @@ const TradeTestContent = ({
       // Finding the old ones..
 
       newInventory.forEach((item, index) => {
-        if (item.slot === oldSlot) {
+        if (item.slotData === oldSlot) {
           oldIndex = index
-        } else if (item.slot === newSlot) {
+        } else if (item.slotData === newSlot) {
           newIndex = index
         }
       })
 
       // Replacing them
 
-      newInventory[oldIndex] = { ...newInventory[oldIndex], slot: newSlot }
-      newInventory[newIndex] = { ...newInventory[newIndex], slot: oldSlot }
+      newInventory[oldIndex] = { ...newInventory[oldIndex], slotData: newSlot }
+      newInventory[newIndex] = { ...newInventory[newIndex], slotData: oldSlot }
 
       return [...newInventory]
     })
@@ -188,18 +187,18 @@ const TradeTestContent = ({
       let newInventory = [...currentState]
       let targetIndex: any
       newInventory.forEach((item, index) => {
-        if (item.slot === oldSlot) {
+        if (item.slotData === oldSlot) {
           targetIndex = index
         }
       })
-      newInventory[targetIndex] = { ...newInventory[targetIndex], slot: newSlot }
+      newInventory[targetIndex] = { ...newInventory[targetIndex], slotData: newSlot }
       return [...newInventory]
     })
   }
 
   const onInventoryItemDragged = ({ detail: eventData }: any) => {
-    const oldSlot = parseInt(eventData.slot),
-      newSlot = parseInt(eventData.destination.slot)
+    const oldSlot = parseInt(eventData.slotData),
+      newSlot = parseInt(eventData.destination.slotData)
 
     if (eventData.destination.type === 'empty-slot') {
       moveItemToSlot(oldSlot, newSlot)
@@ -336,21 +335,8 @@ const TradeTestContent = ({
                     sx={{ position: 'relative' }}
                     // className={`inventory`}
                   >
-                    <div>
-                      {
-                        itemTrade && itemTrade.map(trade => {
-                          return (
-                            <div className="box" key={trade.id}>
-                              <img src={trade.image} />
-                              <br />
-                              {trade.name}
-                            </div>
-                          )
-                        })
-                      }
-                    </div>
-                    {getCurrentSlots().map((slot) => (
-                      <TradeSlot slot={slot} value={getItemDataInSlot(slot) || null} key={slot} />
+                    {getCurrentSlots().map((slotData) => (
+                      <TradeSlot slotData={slotData} value={getItemDataInSlot(slotData) || null} key={slotData} />
                     ))}
                   </Stack>
                   {/* pagination */}

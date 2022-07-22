@@ -6,7 +6,7 @@ import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 
-import { InventoryService, useInventoryState } from '../services/InventoryService'
+import { InventoryTradeService, useInventoryTradeState } from '../services/TradeServiceTest'
 import styles from '../style/ui.module.scss'
 import Trading from '../Trading'
 import OtherTradingContent from '../Trading/otherTrade'
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export const Tradetest = (props: Props): any => {
-  const inventoryState = useInventoryState()
+  const inventoryState = useInventoryTradeState()
 
   let { data, user, type, isLoading, isLoadingtransfer, coinData } = inventoryState.value
   const authState = useAuthState()
@@ -29,7 +29,7 @@ export const Tradetest = (props: Props): any => {
 
   useEffect(() => {
     if (authState.isLoggedIn.value) {
-      InventoryService.fetchInventoryList(authState.authUser.identityProvider.userId.value)
+      InventoryTradeService.fetchInventoryListTrade(authState.authUser.identityProvider.userId.value)
     }
   }, [authState.isLoggedIn.value])
 
@@ -67,7 +67,7 @@ export const Tradetest = (props: Props): any => {
                   id={props.id}
                   type={type}
                   changeActiveMenu={props.changeActiveMenu}
-                  InventoryService={InventoryService}
+                  InventoryTradeService={InventoryTradeService}
                   isLoadingtransfer={isLoadingtransfer}
                 />
               )}
