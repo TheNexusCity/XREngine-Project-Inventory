@@ -4,8 +4,9 @@ import { useDispatch, store } from '@xrengine/client-core/src/store'
 import { client } from '@xrengine/client-core/src/feathers'
 import { createState, DevTools, useState, none, Downgraded } from '@speigg/hookstate'
 import { RelationshipSeed } from '@xrengine/common/src/interfaces/Relationship'
-import { getMyDIP721Tokens } from '../functions/DIP721'
-import { getMyERC721Tokens } from '../functions/ERC721'
+// import { getMyDIP721Tokens } from '../functions/DIP721'
+// import { getMyERC721Tokens } from '../functions/ERC721'
+import itemTrade from '../Tradetest/itemTrade.json'
 
 //State
 const state = createState({
@@ -21,7 +22,6 @@ store.receptors.push((action: InventoryActionType): void => {
   state.batch((s) => {
     switch (action.type) {
       case 'SET_INVENTORY_DATA':
-        console.log(action.data)
         return s.merge({
           ...action.data.filter((val) => val.isCoin === false),
           data: [...action.data.filter((val) => val.isCoin === false)],
@@ -48,10 +48,10 @@ store.receptors.push((action: InventoryActionType): void => {
 })
 
 export const accessInventoryState = () => state
-export const useInventoryState = () => useState(state) as any as typeof state as unknown as typeof state
+export const useInventoryTradeState = () => useState(state) as any as typeof state as unknown as typeof state
 
 //Service
-export const InventoryService = {
+export const InventoryTradeService = {
   handleTransfer: async (ids, itemid, inventoryid) => {
     const dispatch = useDispatch()
     dispatch(InventoryAction.loadtransfer())
@@ -60,7 +60,7 @@ export const InventoryService = {
         userId: ids,
         userInventoryId: itemid
       })
-      InventoryService.fetchInventoryList(inventoryid)
+      InventoryTradeService.fetchInventoryListTrade(inventoryid)
     } catch (err) {
       console.error(err, 'error')
     } finally {
@@ -68,7 +68,7 @@ export const InventoryService = {
     }
   },
 
-  fetchInventoryList: async (id) => {
+  fetchInventoryListTrade: async (id) => {
     const dispatch = useDispatch()
     dispatch(InventoryAction.loadinventory())
     try {
@@ -99,19 +99,19 @@ export const InventoryService = {
       /**
        * DIP721 NFT Sync
        */
-      const myNFTs = await getMyDIP721Tokens();
+      // const myNFTs = await getMyDIP721Tokens();
 
-      console.error('myNFTs - ', myNFTs)
+      const myNFTsJson = itemTrade;
 
-      if(myNFTs){
-        ;(myNFTs as any).Ok.forEach((item) => {
-          inventory_items.push({
-            ...invenItem,
+
+      if(myNFTsJson){
+        myNFTsJson.map((item) => {
+          inventory_items.push({...invenItem,
             user_inventory: { quantity: 1 },
-            slot: inventory_items.length,
-            name: item.token_identifier,
-            url: item.properties[5][1].TextContent,
-            type: item.properties[2][1].TextContent,
+            slotData: inventory_items.length,
+            name: item.name,
+            url: item.url,
+            type: item.type,
             isCoin: true
           })
         })
@@ -202,4 +202,3 @@ export const InventoryAction = {
 }
 
 export type InventoryActionType = ReturnType<typeof InventoryAction[keyof typeof InventoryAction]>
-

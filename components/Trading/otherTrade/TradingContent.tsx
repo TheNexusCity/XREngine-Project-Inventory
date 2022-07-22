@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { usePrevious } from '@xrengine/client-core/src/hooks/usePrevious'
 
 import { ArrowBackIos, FilterList } from '@mui/icons-material'
+import BlockIcon from '@mui/icons-material/Block'
 import CheckIcon from '@mui/icons-material/Check'
 import {
   Box,
@@ -116,7 +117,7 @@ type StateType = {
 
 const ITEM_HEIGHT = 48
 
-const TradingContent = ({
+const OtherTradingContent = ({
   data,
   user,
   propid,
@@ -215,7 +216,7 @@ const TradingContent = ({
           targetIndex = index
         }
       })
-      newInventory[targetIndex] = { ...newInventory[targetIndex], slot: newSlot }
+      newInventory[targetIndex] = { ...newInventory[targetIndex], slotData: newSlot }
 
       return [...newInventory]
     })
@@ -364,6 +365,7 @@ const TradingContent = ({
     const startIndex = (state.currentPage - 1) * inventoryLimit
     const endIndex = state.currentPage * inventoryLimit
     for (let i = startIndex; i < endIndex; i++) res.push(i)
+
     return res
   }
 
@@ -402,7 +404,7 @@ const TradingContent = ({
   return (
     <Box className={`${classes.root} ${classes.contents}`}>
       <Stack justifyContent="center">
-        <Typography className={`${classes.title} ${classes.titlesize}`}>Remote Trade</Typography>
+        <Typography className={`${classes.title} ${classes.titlesize}`}>Local Trade</Typography>
         <Stack direction="row" justifyContent="center">
           <Stack>
             <Stack>
@@ -420,6 +422,14 @@ const TradingContent = ({
               </Stack>
             </Stack>
             <Typography align="center" display="flex">
+              <Button
+                style={{ maxWidth: '100px', maxHeight: '40px', minWidth: '100px', minHeight: '40px' }}
+                variant="outlined"
+                color="error"
+                startIcon={<BlockIcon />}
+              >
+                Cancel
+              </Button>
               <Button
                 style={{ maxWidth: '100px', maxHeight: '40px', minWidth: '100px', minHeight: '40px' }}
                 variant="contained"
@@ -453,4 +463,4 @@ const TradingContent = ({
   )
 }
 
-export default TradingContent
+export default OtherTradingContent

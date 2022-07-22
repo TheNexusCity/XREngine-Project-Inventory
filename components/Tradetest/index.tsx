@@ -6,22 +6,21 @@ import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 
-import { InventoryService, useInventoryState } from '../services/InventoryService'
+import { InventoryTradeService, useInventoryTradeState } from '../services/TradeServiceTest'
 import styles from '../style/ui.module.scss'
 import Trading from '../Trading'
 import OtherTradingContent from '../Trading/otherTrade'
-import InventoryContent from './InventoryContent'
+import TradeTestContent from './TradeTestContent'
 
 interface Props {
   changeActiveMenu?: any
   id: String
 }
 
-export const Inventory = (props: Props): any => {
-  const inventoryState = useInventoryState()
+export const Tradetest = (props: Props): any => {
+  const inventoryState = useInventoryTradeState()
 
   let { data, user, type, isLoading, isLoadingtransfer, coinData } = inventoryState.value
-  
   const authState = useAuthState()
 
   useEffect(() => {
@@ -30,7 +29,7 @@ export const Inventory = (props: Props): any => {
 
   useEffect(() => {
     if (authState.isLoggedIn.value) {
-      InventoryService.fetchInventoryList(authState.authUser.identityProvider.userId.value)
+      InventoryTradeService.fetchInventoryListTrade(authState.authUser.identityProvider.userId.value)
     }
   }, [authState.isLoggedIn.value])
 
@@ -61,14 +60,14 @@ export const Inventory = (props: Props): any => {
               {isLoading ? (
                 'Loading...'
               ) : (
-                <InventoryContent
+                <TradeTestContent
                   data={data}
                   coinData={coinData}
                   user={user}
                   id={props.id}
                   type={type}
                   changeActiveMenu={props.changeActiveMenu}
-                  InventoryService={InventoryService}
+                  InventoryTradeService={InventoryTradeService}
                   isLoadingtransfer={isLoadingtransfer}
                 />
               )}
@@ -80,4 +79,4 @@ export const Inventory = (props: Props): any => {
   )
 }
 
-export default Inventory
+export default Tradetest

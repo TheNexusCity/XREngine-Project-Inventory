@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from '@xrengine/client-core/src/store'
 import { AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 
-import { TradingAction, TradingService, useTradingState } from '../services/TradingService'
-import styles from '../style/ui.module.scss'
-import TradingContent from './TradingContent'
+import { TradingAction, TradingService, useTradingState } from '../../services/TradingService'
+import styles from '../../style/ui.module.scss'
+import OtherTradingContent from './TradingContent'
 
 interface Props {
   changeActiveMenu?: any
@@ -72,7 +72,7 @@ export const Trading = (props: any): any => {
       {isLoading ? (
         'Loading...'
       ) : (
-        <TradingContent
+        <OtherTradingContent
           data={data}
           data1={data1}
           data0={data0}

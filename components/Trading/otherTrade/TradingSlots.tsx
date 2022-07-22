@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import { Stack } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import makeStyles from '@mui/styles/makeStyles'
 
-import styles from '../style/ui.module.scss'
+import styles from '../../style/ui.module.scss'
 
 const useStyles = makeStyles({
   inventoryItem: {
@@ -13,8 +13,8 @@ const useStyles = makeStyles({
     borderRadius: '6.74257px',
     border: '2px solid rgba(137, 137, 242, 0.53)',
     boxShadow: '0px 11.23762321472168px 11.23762321472168px 0px #00000040',
-    width: '120px',
-    height: '120px',
+    width: '80px',
+    height: '80px',
     '&:hover': {
       cursor: 'pointer'
     }
@@ -26,8 +26,8 @@ const useStyles = makeStyles({
     background: 'linear-gradient(180deg, rgba(137, 137, 242, 0.5) 0%, rgba(92, 92, 92, 0.5) 100%)',
     boxShadow: '0px 11.23762321472168px 11.23762321472168px 0px #00000040',
     backdropFilter: 'blur(50px)',
-    width: '120px',
-    height: '120px',
+    width: '80px',
+    height: '80px'
   },
   inventoryContent: {
     '&.being-dragged': {
@@ -43,8 +43,7 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    pointerEvents: 'none',
-    zIndex: '100'
+    pointerEvents: 'none'
   },
   inventoryItemPreview: {
     width: '90%',
@@ -70,13 +69,13 @@ const MainComponent = (props: any) => {
     return 'image'
   }
 
-  const ItemSlot = ({ value, slot }: any) => {
+  const ItemSlot = ({ value, slotData }: any) => {
     return (
       <Stack justifyContent="center" alignItems="center" className={`${classes.inventoryItem}`}>
         <div
-          id={`item-slot-${slot}`}
+          id={`item-slot-${slotData}`}
           className={`item-slot ${classes.inventoryContent}`}
-          data-slot={props.slot}
+          data-slot={props.slotData}
           data-type={`item`}
         >
           <div className={`${classes.inventoryInsideContent}`}>
@@ -101,13 +100,13 @@ const MainComponent = (props: any) => {
     )
   }
 
-  const EmptySlot = ({ slot }: any) => {
+  const EmptySlot = ({ slotData }: any) => {
     return (
       <Stack justifyContent="center" alignItems="center" className={`${classes.inventoryItemEmpty}`}>
         <div
           className="item-slot empty"
           style={{ width: '100%', height: '100%' }}
-          data-slot={slot}
+          data-slot={slotData}
           data-type={`empty-slot`}
         ></div>
       </Stack>
