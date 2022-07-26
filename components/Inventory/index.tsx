@@ -25,7 +25,7 @@ export const Inventory = (props: Props): any => {
     }
   }, [authState.isLoggedIn.value])
   
-  console.log(authState.authUser.identityProvider.userId.value);
+  console.log(authState.authUser.value);
   return (
     <div className={styles.menuPanel}>
       {isLoading ? (
