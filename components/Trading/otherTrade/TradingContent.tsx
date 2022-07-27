@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { usePrevious } from '@xrengine/client-core/src/hooks/usePrevious'
+import { AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 
 import { ArrowBackIos, FilterList } from '@mui/icons-material'
 import BlockIcon from '@mui/icons-material/Block'
@@ -29,6 +30,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 import Typography from '@mui/material/Typography'
 import makeStyles from '@mui/styles/makeStyles'
 
+import Modal from './Modal'
 import Slots from './TradingSlots'
 
 const useStyles = makeStyles({
@@ -178,9 +180,6 @@ const OtherTradingContent = ({
     setOpen(true)
   }
 
-  const handleCloseModal = () => {
-    setOpen(false)
-  }
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setState((prevState: any) => ({
       ...prevState,
@@ -300,6 +299,7 @@ const OtherTradingContent = ({
     //   fortrading: [...tasks]
     // }))
   }
+
   const addfortrade = (value: any, index) => {
     const fortrading = [...state.fortrading, { ...value }]
     setState((prevState: any) => ({
@@ -426,15 +426,17 @@ const OtherTradingContent = ({
                 style={{ maxWidth: '100px', maxHeight: '40px', minWidth: '100px', minHeight: '40px' }}
                 variant="outlined"
                 color="error"
+                onClick={handleClickOpen}
                 startIcon={<BlockIcon />}
               >
                 Cancel
+                {openModal && <Modal />}
               </Button>
               <Button
                 style={{ maxWidth: '100px', maxHeight: '40px', minWidth: '100px', minHeight: '40px' }}
                 variant="contained"
                 color="success"
-                endIcon={<CheckIcon onClick={handleClickOpen} />}
+                endIcon={<CheckIcon />}
               >
                 Accept
               </Button>
@@ -442,8 +444,9 @@ const OtherTradingContent = ({
           </Stack>
         </Stack>
       </Stack>
-      <Dialog
-        open={openModal}
+
+      {/* <Dialog
+        open={true}
         onClose={handleCloseModal}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -458,7 +461,7 @@ const OtherTradingContent = ({
             Confirm
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </Box>
   )
 }
