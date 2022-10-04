@@ -33,8 +33,6 @@ export const Inventory = (props: Props): any => {
       InventoryService.fetchInventoryList(authState.authUser.identityProvider.userId.value)
     }
   }, [authState.isLoggedIn.value])
-
-  console.log(authState.authUser.identityProvider.userId.value)
   return (
     <Box sx={{ width: '100%' }} className={styles.cards_trade_grid}>
       <Grid
