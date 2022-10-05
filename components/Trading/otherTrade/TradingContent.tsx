@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { usePrevious } from '@xrengine/client-core/src/hooks/usePrevious'
+import { AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 
 import { ArrowBackIos, FilterList } from '@mui/icons-material'
+import BlockIcon from '@mui/icons-material/Block'
 import CheckIcon from '@mui/icons-material/Check'
 import {
   Box,
@@ -28,6 +30,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 import Typography from '@mui/material/Typography'
 import makeStyles from '@mui/styles/makeStyles'
 
+import Modal from './Modal'
 import Slots from './TradingSlots'
 
 const useStyles = makeStyles({
@@ -116,7 +119,7 @@ type StateType = {
 
 const ITEM_HEIGHT = 48
 
-const TradingContent = ({
+const OtherTradingContent = ({
   data,
   user,
   propid,
@@ -177,9 +180,6 @@ const TradingContent = ({
     setOpen(true)
   }
 
-  const handleCloseModal = () => {
-    setOpen(false)
-  }
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setState((prevState: any) => ({
       ...prevState,
@@ -215,7 +215,7 @@ const TradingContent = ({
           targetIndex = index
         }
       })
-      newInventory[targetIndex] = { ...newInventory[targetIndex], slot: newSlot }
+      newInventory[targetIndex] = { ...newInventory[targetIndex], slotData: newSlot }
 
       return [...newInventory]
     })
@@ -299,6 +299,7 @@ const TradingContent = ({
     //   fortrading: [...tasks]
     // }))
   }
+
   const addfortrade = (value: any, index) => {
     const fortrading = [...state.fortrading, { ...value }]
     setState((prevState: any) => ({
@@ -364,6 +365,7 @@ const TradingContent = ({
     const startIndex = (state.currentPage - 1) * inventoryLimit
     const endIndex = state.currentPage * inventoryLimit
     for (let i = startIndex; i < endIndex; i++) res.push(i)
+
     return res
   }
 
@@ -402,7 +404,7 @@ const TradingContent = ({
   return (
     <Box className={`${classes.root} ${classes.contents}`}>
       <Stack justifyContent="center">
-        <Typography className={`${classes.title} ${classes.titlesize}`}>Remote Trade</Typography>
+        <Typography className={`${classes.title} ${classes.titlesize}`}>Local Trade</Typography>
         <Stack direction="row" justifyContent="center">
           <Stack>
             <Stack>
@@ -422,9 +424,19 @@ const TradingContent = ({
             <Typography align="center" display="flex">
               <Button
                 style={{ maxWidth: '100px', maxHeight: '40px', minWidth: '100px', minHeight: '40px' }}
+                variant="outlined"
+                color="error"
+                onClick={handleClickOpen}
+                startIcon={<BlockIcon />}
+              >
+                Cancel
+                {openModal && <Modal />}
+              </Button>
+              <Button
+                style={{ maxWidth: '100px', maxHeight: '40px', minWidth: '100px', minHeight: '40px' }}
                 variant="contained"
                 color="success"
-                endIcon={<CheckIcon onClick={handleClickOpen} />}
+                endIcon={<CheckIcon />}
               >
                 Accept
               </Button>
@@ -432,8 +444,9 @@ const TradingContent = ({
           </Stack>
         </Stack>
       </Stack>
-      <Dialog
-        open={openModal}
+
+      {/* <Dialog
+        open={true}
         onClose={handleCloseModal}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -448,9 +461,9 @@ const TradingContent = ({
             Confirm
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </Box>
   )
 }
 
-export default TradingContent
+export default OtherTradingContent

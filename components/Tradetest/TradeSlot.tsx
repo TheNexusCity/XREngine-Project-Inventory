@@ -62,31 +62,28 @@ const MainComponent = (props: any) => {
   const getNftType = (url: string) => {
     const elements = url.split('.')
     const fileType = elements[elements.length - 1]
-    const token = url.split('?')
 
     const videoTypes = ['mp4']
 
     if (videoTypes.indexOf(fileType) !== -1) return 'video'
 
-    if (token[1]) return 'token'
-
     return 'image'
   }
 
-  const ItemSlot = ({ value, slot }: any) => {
+  const TradeSlot = ({ value, slotData }: any) => {
     return (
       <Stack justifyContent="center" alignItems="center" className={`${classes.inventoryItem}`}>
         <div
-          id={`item-slot-${slot}`}
+          id={`item-slot-${slotData}`}
           className={`item-slot ${classes.inventoryContent}`}
-          data-slot={props.slot}
+          data-slot={props.slotData}
           data-type={`item`}
         >
           <div className={`${classes.inventoryInsideContent}`}>
-            {getNftType(value.url) === 'token' ? (
-              <iframe className={`${classes.inventoryItemPreview}`} src={value.url}></iframe>
+            {getNftType(value.url) === 'video' ? (
+              <video className={`${classes.inventoryItemPreview}`} src={value.url} muted autoPlay loop />
             ) : getNftType(value.url) === 'image' ? (
-              <img className={`${classes.inventoryItemPreview}`} src={value.url} alt="nft" />
+              <img className={`${classes.inventoryItemPreview}`} src={value.url} alt="" />
             ) : null}
 
             {/* <div>
@@ -96,7 +93,7 @@ const MainComponent = (props: any) => {
             {/* <video className={`${classes.inventoryItemPreview}`} src={`https://gateway.pinata.cloud/ipfs/QmaqaX1fjJeQdGLxyox5XPFHfk5MG2syGNtS2jn1V8oLz2`} muted autoPlay loop /> */}
 
             <div className={value.name.length > 0 ? styles.cssMarquee : styles.cssMarquee}>
-              <Typography className={`${classes.inventoryItemName}`}>{`Asset #${value.name}`}</Typography>
+              <Typography className={`${classes.inventoryItemName}`}>{`Crowns #${value.name}`}</Typography>
             </div>
           </div>
         </div>
@@ -104,20 +101,20 @@ const MainComponent = (props: any) => {
     )
   }
 
-  const EmptySlot = ({ slot }: any) => {
+  const EmptySlot = ({ slotData }: any) => {
     return (
       <Stack justifyContent="center" alignItems="center" className={`${classes.inventoryItemEmpty}`}>
         <div
           className="item-slot empty"
           style={{ width: '100%', height: '100%' }}
-          data-slot={slot}
+          data-slot={slotData}
           data-type={`empty-slot`}
         ></div>
       </Stack>
     )
   }
 
-  return props.value !== null ? <ItemSlot {...props} /> : <EmptySlot {...props} />
+  return props.value !== null ? <TradeSlot {...props} /> : <EmptySlot {...props} />
 }
 
 export default MainComponent

@@ -23,8 +23,8 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import makeStyles from '@mui/styles/makeStyles'
 
-import DragAndDropAPI from './DragAndDropAPI'
-import ItemSlot from './Slot'
+import DragAndDropAPI from '../Inventory/DragAndDropAPI'
+import TradeSlot from './TradeSlot'
 
 const useStyles = makeStyles({
   root1: {
@@ -122,7 +122,7 @@ const ITEM_HEIGHT = 48
 
 const inventoryLimit = 9
 
-const InventoryContent = ({
+const TradeTestContent = ({
   coinData,
   data,
   user,
@@ -156,7 +156,7 @@ const InventoryContent = ({
   const [items, setItems] = useState([...coinData])
 
   const [draggingSlotId, setDraggingSlot] = useState(null)
-  const getItemDataInSlot = (slot) => items.find((item) => item.slot === slot)
+  const getItemDataInSlot = (slotData) => items.find((item) => item.slotData === slotData)
 
   const swapItemSlots = (oldSlot, newSlot) => {
     setItems((currentState) => {
@@ -166,17 +166,17 @@ const InventoryContent = ({
       // Finding the old ones..
 
       newInventory.forEach((item, index) => {
-        if (item.slot === oldSlot) {
+        if (item.slotData === oldSlot) {
           oldIndex = index
-        } else if (item.slot === newSlot) {
+        } else if (item.slotData === newSlot) {
           newIndex = index
         }
       })
 
       // Replacing them
 
-      newInventory[oldIndex] = { ...newInventory[oldIndex], slot: newSlot }
-      newInventory[newIndex] = { ...newInventory[newIndex], slot: oldSlot }
+      newInventory[oldIndex] = { ...newInventory[oldIndex], slotData: newSlot }
+      newInventory[newIndex] = { ...newInventory[newIndex], slotData: oldSlot }
 
       return [...newInventory]
     })
@@ -187,18 +187,18 @@ const InventoryContent = ({
       let newInventory = [...currentState]
       let targetIndex: any
       newInventory.forEach((item, index) => {
-        if (item.slot === oldSlot) {
+        if (item.slotData === oldSlot) {
           targetIndex = index
         }
       })
-      newInventory[targetIndex] = { ...newInventory[targetIndex], slot: newSlot }
+      newInventory[targetIndex] = { ...newInventory[targetIndex], slotData: newSlot }
       return [...newInventory]
     })
   }
 
   const onInventoryItemDragged = ({ detail: eventData }: any) => {
-    const oldSlot = parseInt(eventData.slot),
-      newSlot = parseInt(eventData.destination.slot)
+    const oldSlot = parseInt(eventData.slotData),
+      newSlot = parseInt(eventData.destination.slotData)
 
     if (eventData.destination.type === 'empty-slot') {
       moveItemToSlot(oldSlot, newSlot)
@@ -234,12 +234,11 @@ const InventoryContent = ({
       ...prevState,
       currentPage: prevState.currentPage + 1
     }))
-    
   }
   const goToPrevPage = () => {
     setState((prevState) => ({
       ...prevState,
-      currentPage: prevState.currentPage > 1 ? prevState.currentPage - 1 : 1
+      currentPage: prevState.currentPage - 1
     }))
   }
   const getCurrentSlots = () => {
@@ -247,6 +246,7 @@ const InventoryContent = ({
     const startIndex = (state.currentPage - 1) * inventoryLimit
     const endIndex = state.currentPage * inventoryLimit
     for (let i = startIndex; i < endIndex; i++) res.push(i)
+
     return res
   }
 
@@ -335,12 +335,9 @@ const InventoryContent = ({
                     sx={{ position: 'relative' }}
                     // className={`inventory`}
                   >
-                    {getCurrentSlots().map((slot) => {
-                      
-                      
-                      return(
-                      <ItemSlot slot={slot} value={getItemDataInSlot(slot) || null} key={slot} />
-                    )})}
+                    {getCurrentSlots().map((slotData) => (
+                      <TradeSlot slotData={slotData} value={getItemDataInSlot(slotData) || null} key={slotData} />
+                    ))}
                   </Stack>
                   {/* pagination */}
                   <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -348,10 +345,11 @@ const InventoryContent = ({
                       sx={{ svg: { color: 'white' } }}
                       className={`${classes.invenPaginationBtn} ${state.currentPage <= 1 ? 'disable' : ''}`}
                       onClick={() => goToPrevPage()}
-                      disabled={state.currentPage < 1 ? true : false}
+                      disabled={state.currentPage <= 1 ? true : false}
                     >
                       <ArrowBackIos />
                     </IconButton>
+
                     <Typography>Page {`${state.currentPage} / ${totalPage}`}</Typography>
                     <IconButton
                       sx={{ svg: { color: 'white' } }}
@@ -361,7 +359,6 @@ const InventoryContent = ({
                     >
                       <ArrowForwardIos />
                     </IconButton>
-                   
                   </Stack>
                 </Stack>
               ) : (
@@ -373,6 +370,7 @@ const InventoryContent = ({
           </Stack>
         </Stack>
       </Stack>
+
       <Stack direction="row" justifyContent="space-between" className={classes.title}>
         {/* <IconButton
           sx={{ svg: { color: 'white' } }}
@@ -545,4 +543,4 @@ const InventoryContent = ({
   )
 }
 
-export default InventoryContent
+export default TradeTestContent

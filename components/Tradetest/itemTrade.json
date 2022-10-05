@@ -1,0 +1,19 @@
+[
+    {
+        "name": "nft-1",
+        "type": "LavaLava",
+        "url": "https://res.cloudinary.com/ddu9kyo4m/image/upload/v1658305113/nfts/nft-3_jmnplg.png"
+    },
+  
+    { 
+        "name": "nft-2", 
+        "type": "LavaCool",
+        "url": "https://res.cloudinary.com/ddu9kyo4m/image/upload/v1658305112/nfts/nft-2_q6h8ml.png"
+    },
+  
+    {
+        "name": "nft-3",
+        "type": "LavaAnge",
+        "url": "https://res.cloudinary.com/ddu9kyo4m/image/upload/v1658305111/nfts/nft-1_x5czhi.png"
+    }
+]
